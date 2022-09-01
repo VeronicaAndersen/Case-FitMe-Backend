@@ -1,0 +1,23 @@
+package com.example.casefitmebackend.models;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+/**
+ * Set model.
+ */
+@Entity
+@Setter
+@Getter
+public class Set {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "set_id")
+    private int id;
+
+    @Column(name = "set_exercise_repetition")
+    private String exercise_repetition;
+
+}
