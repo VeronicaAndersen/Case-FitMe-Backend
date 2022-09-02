@@ -32,10 +32,10 @@ public class User {
     private String last_name;
 
     @Column(name = "user_is_contributor", length = 5, nullable = false)
-    private Boolean is_contributor;
+    private boolean is_contributor;
 
     @Column(name = "user_is_admin", length = 5, nullable = false)
-    private Boolean is_admin;
+    private boolean is_admin;
 
     @OneToOne(mappedBy = "user")
     private Profile profile;

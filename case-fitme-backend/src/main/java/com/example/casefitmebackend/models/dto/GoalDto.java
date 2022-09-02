@@ -2,9 +2,11 @@ package com.example.casefitmebackend.models.dto;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class GoalDto {
-    /**
-     * Insert private int id etc in here
-     */
+    private int id;
+    private Date date;
+    private boolean achieved;
 }
