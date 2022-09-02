@@ -23,7 +23,7 @@ public class Goal {
     private Date end_date;
 
     @Column(name = "goal_achieved", length = 50, nullable = false)
-    private Boolean achieved;
+    private boolean achieved;
 
     @ManyToMany
     @JoinTable(name = "goal_workout",
