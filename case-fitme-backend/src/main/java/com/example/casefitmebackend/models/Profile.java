@@ -22,16 +22,16 @@ public class Profile {
     @Column(name = "profile_id")
     private int id;
 
-    @Column(name = "profile_weight")
-    private String weight;
+    @Column(name = "profile_weight", length = 10)
+    private int weight;
 
-    @Column(name = "profile_height")
-    private String height;
+    @Column(name = "profile_height", length = 10)
+    private int height;
 
-    @Column(name = "profile_medical_conditions")
+    @Column(name = "profile_medical_conditions", length = 50)
     private String medical_conditions;
 
-    @Column(name = "profile_disabilities")
+    @Column(name = "profile_disabilities", length = 50)
     private String disabilities;
 
 

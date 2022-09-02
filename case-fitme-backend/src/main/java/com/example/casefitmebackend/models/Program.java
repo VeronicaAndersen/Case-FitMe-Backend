@@ -18,10 +18,10 @@ public class Program {
     @Column(name = "program_id")
     private int id;
 
-    @Column(name = "program_name")
+    @Column(name = "program_name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "program_category")
+    @Column(name = "program_category", length = 50)
     private String category;
 
     @ManyToMany(mappedBy = "programs")

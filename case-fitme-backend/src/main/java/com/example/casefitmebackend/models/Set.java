@@ -17,8 +17,8 @@ public class Set {
     @Column(name = "set_id")
     private int id;
 
-    @Column(name = "set_exercise_repetition")
-    private String exercise_repetition;
+    @Column(name = "set_exercise_repetition", length = 10)
+    private int exercise_repetition;
 
     @ManyToOne
     @JoinColumn(name = "workout_id")

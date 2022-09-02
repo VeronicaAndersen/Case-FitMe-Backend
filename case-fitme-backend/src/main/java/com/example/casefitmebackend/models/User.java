@@ -10,28 +10,32 @@ import java.util.Set;
  * User model.
  */
 @Entity
+@Table(name = "app_user")
 @Getter
 @Setter
 public class User {
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private int id;
 
-    @Column(name = "user_password")
+    @Column(name = "user_password", length = 50)
     private String password;
 
-    @Column(name = "user_first_name")
+    @Column(name = "user_first_name", length = 50)
     private String first_name;
 
-    @Column(name = "user_last_name")
+    @Column(name = "user_last_name", length = 50)
     private String last_name;
 
-    @Column(name = "user_is_contributor")
-    private String is_contributor;
+    @Column(name = "user_is_contributor", length = 5, nullable = false)
+    private Boolean is_contributor;
 
-    @Column(name = "user_is_admin")
-    private String is_admin;
+    @Column(name = "user_is_admin", length = 5, nullable = false)
+    private Boolean is_admin;
 
     @OneToOne(mappedBy = "user")
     private Profile profile;

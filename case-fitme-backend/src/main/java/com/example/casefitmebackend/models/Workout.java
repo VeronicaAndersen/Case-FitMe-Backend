@@ -18,14 +18,14 @@ public class Workout {
     @Column(name = "workout_id")
     private int id;
 
-    @Column(name = "workout_name")
+    @Column(name = "workout_name", length = 50)
     private String name;
 
-    @Column(name = "workout_type")
+    @Column(name = "workout_type", length = 50)
     private String type;
 
-    @Column(name = "workout_complete")
-    private String complete;
+    @Column(name = "workout_complete", length = 5)
+    private Boolean complete;
 
     @ManyToMany(mappedBy = "workouts")
     private Set<Program> programs;

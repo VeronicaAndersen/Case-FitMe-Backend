@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -18,10 +19,10 @@ public class Goal {
     @Column(name = "goal_id")
     private int id;
 
-    @Column(name = "goal_end_date")
-    private String end_date;
+    @Column(name = "goal_end_date", length = 50, nullable = false)
+    private Date end_date;
 
-    @Column(name = "goal_achieved")
-    private String achieved;
+    @Column(name = "goal_achieved", length = 50, nullable = false)
+    private Boolean achieved;
 
 }

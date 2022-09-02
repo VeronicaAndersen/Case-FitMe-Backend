@@ -17,19 +17,19 @@ public class Exercise {
     @Column(name = "exercise_id")
     private int id;
 
-    @Column(name = "exercise_name")
+    @Column(name = "exercise_name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "goal_description")
+    @Column(name = "exercise_description", length = 50)
     private String description;
 
-    @Column(name = "goal_target_muscle_group")
+    @Column(name = "exercise_target_muscle_group", length = 50, nullable = false)
     private String target_muscle_group;
 
-    @Column(name = "goal_image")
+    @Column(name = "exercise_image", length = 50)
     private String image;
 
-    @Column(name = "goal_video_link")
+    @Column(name = "exercise_video_link", length = 50)
     private String video_link;
 
     @ManyToOne
