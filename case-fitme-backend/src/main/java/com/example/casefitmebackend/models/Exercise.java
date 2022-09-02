@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Exercise model.
@@ -33,4 +32,7 @@ public class Exercise {
     @Column(name = "goal_video_link")
     private String video_link;
 
+    @ManyToOne
+    @JoinColumn(name = "set_id")
+    private Set sets;
 }

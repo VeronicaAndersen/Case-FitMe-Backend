@@ -24,6 +24,13 @@ public class Program {
     @Column(name = "program_category")
     private String category;
 
-/*    @OneToMany(mappedBy = "program")
-    private Set<Profile> profiles;*/
+    @ManyToMany(mappedBy = "programs")
+    private Set<Profile> profiles;
+
+    @ManyToMany
+    @JoinTable(name = "program_workout",
+    joinColumns = {@JoinColumn (name = "program_id") },
+            inverseJoinColumns = {@JoinColumn (name = "workout_id")})
+    private Set<Workout> workouts;
+
 }

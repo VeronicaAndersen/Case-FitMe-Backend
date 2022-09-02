@@ -33,6 +33,7 @@ public class User {
     @Column(name = "user_is_admin")
     private String is_admin;
 
-/*    @ManyToMany(mappedBy = "characters")
-    private Set<Movie> movies;*/
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
+
 }

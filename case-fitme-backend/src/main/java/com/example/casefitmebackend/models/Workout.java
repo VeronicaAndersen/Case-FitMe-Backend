@@ -27,6 +27,11 @@ public class Workout {
     @Column(name = "workout_complete")
     private String complete;
 
+    @ManyToMany(mappedBy = "workouts")
+    private Set<Program> programs;
+
+    @OneToMany (mappedBy = "workouts")
+    private Set<com.example.casefitmebackend.models.Set> sets;
 
 }
 

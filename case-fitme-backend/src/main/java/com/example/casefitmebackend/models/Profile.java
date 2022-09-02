@@ -29,20 +29,20 @@ public class Profile {
     private String height;
 
     @Column(name = "profile_medical_conditions")
-    private Date medical_conditions;
+    private String medical_conditions;
 
     @Column(name = "profile_disabilities")
     private String disabilities;
 
 
-/*    @ManyToMany
-    @JoinTable(name = "profile_user",
-            joinColumns = {@JoinColumn(name = "profile_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private Set<User> users;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "program_id")
-    private Program program;*/
+    @ManyToMany
+    @JoinTable(name = "profile_program",
+    joinColumns = {@JoinColumn (name = "profile_id")},
+            inverseJoinColumns = {@JoinColumn (name = "program_id")})
+    private Set<Program> programs;
 
 }

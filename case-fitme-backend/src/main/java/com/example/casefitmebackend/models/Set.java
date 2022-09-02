@@ -20,4 +20,11 @@ public class Set {
     @Column(name = "set_exercise_repetition")
     private String exercise_repetition;
 
+    @ManyToOne
+    @JoinColumn(name = "workout_id")
+    private Workout workouts;
+
+    @OneToMany (mappedBy = "sets")
+    private java.util.Set<Exercise> exercises;
+
 }
