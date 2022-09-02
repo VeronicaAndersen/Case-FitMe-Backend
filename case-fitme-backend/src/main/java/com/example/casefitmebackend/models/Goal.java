@@ -25,4 +25,9 @@ public class Goal {
     @Column(name = "goal_achieved", length = 50, nullable = false)
     private Boolean achieved;
 
+    @ManyToMany
+    @JoinTable(name = "goal_workout",
+            joinColumns = {@JoinColumn (name = "goal_id") },
+            inverseJoinColumns = {@JoinColumn (name = "workout_id")})
+    private Set<Workout> workouts;
 }

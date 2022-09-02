@@ -33,5 +33,8 @@ public class Workout {
     @OneToMany (mappedBy = "workouts")
     private Set<com.example.casefitmebackend.models.Set> sets;
 
+    @ManyToMany(mappedBy = "workouts")
+    private Set<Goal> goals;
+
 }
 
