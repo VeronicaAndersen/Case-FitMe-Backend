@@ -1,5 +1,6 @@
 package com.example.casefitmebackend.models.dto;
 
+import com.example.casefitmebackend.models.Set;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,4 +14,5 @@ public class ExerciseDto {
     private String image;
     private String videoLink;
     private boolean achieved;
+    private Integer sets;
 }

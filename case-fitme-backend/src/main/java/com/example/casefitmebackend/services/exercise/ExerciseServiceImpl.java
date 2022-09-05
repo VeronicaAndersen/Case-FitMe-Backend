@@ -11,7 +11,7 @@ import java.util.Collection;
  * Fully functioning ServiceImpl. Use this as template
  */
 @Service
-public class ExerciseServiceImpl implements ExerciseService{
+public class ExerciseServiceImpl implements ExerciseService {
     private ExerciseRepository exerciseRepository;
 
     public ExerciseServiceImpl(ExerciseRepository exerciseRepository) {
