@@ -1,8 +1,8 @@
 package com.example.casefitmebackend.services.program;
 
-import com.example.casefitmebackend.exceptions.ExerciseNotFoundException;
-import com.example.casefitmebackend.models.Exercise;
-import com.example.casefitmebackend.repositories.ExerciseRepository;
+import com.example.casefitmebackend.exceptions.ProgramNotFoundException;
+import com.example.casefitmebackend.models.Program;
+import com.example.casefitmebackend.repositories.ProgramRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -12,35 +12,35 @@ import java.util.Collection;
  */
 @Service
 public class ProgramServiceImpl implements ProgramService {
-    private ExerciseRepository exerciseRepository;
+    private ProgramRepository profileRepository;
 
-    public ProgramServiceImpl(ExerciseRepository exerciseRepository) {
-        this.exerciseRepository = exerciseRepository;
+    public ProgramServiceImpl(ProgramRepository profileRepository) {
+        this.profileRepository = profileRepository;
     }
 
     @Override
-    public Exercise findById(Integer id) {
-        return exerciseRepository.findById(id)
-                .orElseThrow(() -> new ExerciseNotFoundException(id));
+    public Program findById(Integer id) {
+        return profileRepository.findById(id)
+                .orElseThrow(() -> new ProgramNotFoundException(id));
     }
 
     @Override
-    public Collection<Exercise> findAll() {
-        return exerciseRepository.findAll();
+    public Collection<Program> findAll() {
+        return profileRepository.findAll();
     }
 
     @Override
-    public Exercise add(Exercise entity) {
-        return exerciseRepository.save(entity);
+    public Program add(Program entity) {
+        return profileRepository.save(entity);
     }
 
     @Override
-    public Exercise update(Exercise entity) {
-        return exerciseRepository.save(entity);
+    public Program update(Program entity) {
+        return profileRepository.save(entity);
     }
 
     @Override
     public void deleteById(Integer id) {
-        exerciseRepository.deleteById(id);
+        profileRepository.deleteById(id);
     }
 }

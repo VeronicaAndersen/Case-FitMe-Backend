@@ -26,21 +26,21 @@ public class GoalServiceImpl implements GoalService {
 
     @Override
     public Collection<Goal> findAll() {
-        return null;
+        return goalRepository.findAll();
     }
 
     @Override
     public Goal add(Goal entity) {
-        return null;
+        return goalRepository.save(entity);
     }
 
     @Override
     public Goal update(Goal entity) {
-        return null;
+        return goalRepository.save(entity);
     }
 
     @Override
-    public void deleteById(Integer integer) {
-
+    public void deleteById(Integer id) {
+        goalRepository.deleteById(id);
     }
 }

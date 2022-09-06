@@ -1,32 +1,41 @@
 package com.example.casefitmebackend.services.set;
 
-import com.example.casefitmebackend.models.Exercise;
+import com.example.casefitmebackend.exceptions.SetNotFoundException;
+import com.example.casefitmebackend.models.Set;
+import com.example.casefitmebackend.repositories.SetRepository;
 
 import java.util.Collection;
 
 public class SetServiceImpl implements SetService{
+
+    private SetRepository setRepository;
+
+    public SetServiceImpl(SetRepository setRepository) {
+        this.setRepository = setRepository;
+    }
     @Override
-    public Exercise findById(Integer integer) {
-        return null;
+    public Set findById(Integer id) {
+        return setRepository.findById(id)
+                .orElseThrow(() -> new SetNotFoundException(id));
     }
 
     @Override
-    public Collection<Exercise> findAll() {
-        return null;
+    public Collection<Set> findAll() {
+        return setRepository.findAll();
     }
 
     @Override
-    public Exercise add(Exercise entity) {
-        return null;
+    public Set add(Set entity) {
+        return setRepository.save(entity);
     }
 
     @Override
-    public Exercise update(Exercise entity) {
-        return null;
+    public Set update(Set entity) {
+        return setRepository.save(entity);
     }
 
     @Override
-    public void deleteById(Integer integer) {
-
+    public void deleteById(Integer id) {
+        setRepository.deleteById(id);
     }
 }

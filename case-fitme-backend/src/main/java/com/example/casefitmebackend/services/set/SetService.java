@@ -1,7 +1,9 @@
 package com.example.casefitmebackend.services.set;
 
-import com.example.casefitmebackend.models.Exercise;
+import com.example.casefitmebackend.models.Set;
 import com.example.casefitmebackend.services.CrudService;
+import org.springframework.stereotype.Service;
 
-public interface SetService extends CrudService<Exercise, Integer> {
+@Service
+public interface SetService extends CrudService<Set, Integer> {
 }

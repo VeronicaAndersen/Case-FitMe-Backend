@@ -1,32 +1,40 @@
 package com.example.casefitmebackend.services.profile;
 
-import com.example.casefitmebackend.models.Exercise;
+import com.example.casefitmebackend.exceptions.ProfileNotFoundException;
+import com.example.casefitmebackend.models.Profile;
+import com.example.casefitmebackend.repositories.ProfileRepository;
 
 import java.util.Collection;
 
 public class ProfileServiceImpl implements ProfileService{
+    private ProfileRepository profileRepository;
+
+    public ProfileServiceImpl(ProfileRepository profileRepository) {
+        this.profileRepository = profileRepository;
+    }
     @Override
-    public Exercise findById(Integer integer) {
-        return null;
+    public Profile findById(Integer id) {
+        return profileRepository.findById(id)
+                .orElseThrow(() -> new ProfileNotFoundException(id));
     }
 
     @Override
-    public Collection<Exercise> findAll() {
-        return null;
+    public Collection<Profile> findAll() {
+        return profileRepository.findAll();
     }
 
     @Override
-    public Exercise add(Exercise entity) {
-        return null;
+    public Profile add(Profile entity) {
+        return profileRepository.save(entity);
     }
 
     @Override
-    public Exercise update(Exercise entity) {
-        return null;
+    public Profile update(Profile entity) {
+        return profileRepository.save(entity);
     }
 
     @Override
-    public void deleteById(Integer integer) {
-
+    public void deleteById(Integer id) {
+        profileRepository.deleteById(id);
     }
 }
