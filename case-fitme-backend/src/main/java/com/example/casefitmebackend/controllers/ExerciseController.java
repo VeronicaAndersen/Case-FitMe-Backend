@@ -92,7 +92,9 @@ public class ExerciseController {
                     content = @Content)
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Exercise> update(@RequestBody ExerciseDto exerciseDto) {
+    public ResponseEntity<Exercise> update(@RequestBody ExerciseDto exerciseDto, @PathVariable int id) {
+        if (exerciseDto.getId() != id)
+            return ResponseEntity.badRequest().build();
         exerciseService.update(exerciseMapper.exerciseDtoToExercise(exerciseDto));
         return ResponseEntity.noContent().build();
     }

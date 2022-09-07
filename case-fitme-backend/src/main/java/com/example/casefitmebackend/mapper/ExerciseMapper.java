@@ -17,22 +17,19 @@ public abstract class ExerciseMapper {
     @Autowired
     private SetService setService;
 
-    @Mapping(target="sets", source="sets", qualifiedByName = "mapSetToDto")
+    @Mapping(target="sets", source="sets.id")
     public abstract ExerciseDto exerToExerDTO(Exercise exercise);
 
-//    @Mapping(target = "sets", source = "sets", qualifiedByName = "mapSetToId")
-//    public abstract ExerciseDto exerciseToExerciseDto(Exercise exercise);
-//
-//    @Mapping(target = "exercise", source = "exercise", qualifiedByName = "mapSetToExercises")
-//    public abstract Exercise exerciseDtoToExercise(ExerciseDto exerciseDto);
-//
+    @Mapping(target = "sets", source = "sets.id")
+    public abstract ExerciseDto exerciseToExerciseDto(Exercise exercise);
+
+    @Mapping(target = "exercise", source = "exercise.id")
+    public abstract Exercise exerciseDtoToExercise(ExerciseDto exerciseDto);
+
 //    @Mapping(target = "exercise", source = "exercise")
 //    public abstract Collection<ExerciseDto> exerciseToExerciseDto(Collection<Exercise> exercises);
 
-    @Named("mapSetToId")
-    Integer mapSetToSetId(Set set){
-        return set.getId();
-    }
+
 
     /*@Named("mapSetToExercises")
     Set<Set>mapSetToExercises(Set<Integer> setIds) {
