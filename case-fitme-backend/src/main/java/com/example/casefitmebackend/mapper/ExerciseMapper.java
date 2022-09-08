@@ -4,35 +4,63 @@ import com.example.casefitmebackend.models.Exercise;
 import com.example.casefitmebackend.models.Set;
 import com.example.casefitmebackend.models.dto.ExerciseDto;
 import com.example.casefitmebackend.services.set.SetService;
-import com.example.casefitmebackend.services.workout.WorkoutService;
+import jdk.jfr.Name;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public abstract class ExerciseMapper {
     @Autowired
     private SetService setService;
 
-    @Mapping(target="sets", source="sets.id")
+
+    @Mapping(target="set", source="set", qualifiedByName = "setsToIds")
     public abstract ExerciseDto exerToExerDTO(Exercise exercise);
 
-    @Mapping(target = "sets", source = "sets.id")
-    public abstract ExerciseDto exerciseToExerciseDto(Exercise exercise);
+//    @Mapping(target = "sets", source = "sets.id")
+//    public abstract ExerciseDto exerciseToExerciseDto(Exercise exercise);
 
-    @Mapping(target = "exercise", source = "exercise.id")
+    @Mapping(target = "set", source = "set", qualifiedByName = "setIdsToSets")
     public abstract Exercise exerciseDtoToExercise(ExerciseDto exerciseDto);
 
 //    @Mapping(target = "exercise", source = "exercise")
 //    public abstract Collection<ExerciseDto> exerciseToExerciseDto(Collection<Exercise> exercises);
 
 
-
     /*@Named("mapSetToExercises")
     Set<Set>mapSetToExercises(Set<Integer> setIds) {
-
     }*/
+
+    @Named("mapFromSet")
+    Integer mapFromSet(Set set) {
+        if (set == null) return null;
+        return set.getId();
+    }
+
+    @Named("mapToSet")
+    Set mapToSet(Integer id){
+        if(id == null) return null;
+        return setService.findById(id);
+    }
+
+    @Named("setIdsToSets")
+    java.util.Set<Set> mapIdsToSets(java.util.Set<Integer> id) {
+        return id.stream()
+                .map(i -> setService.findById(i))
+                .collect(Collectors.toSet());
+    }
+
+    @Named("setsToIds")
+    java.util.Set<Integer> mapSetsToIds(java.util.Set<Set> source) {
+        if(source ==null)
+            return null;
+        return source.stream()
+                .map(s -> s.getId()).collect(Collectors.toSet());
+    }
+
+
 }

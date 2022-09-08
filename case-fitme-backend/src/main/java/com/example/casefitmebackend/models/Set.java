@@ -24,7 +24,7 @@ public class Set {
     @JoinColumn(name = "workout_id")
     private Workout workouts;
 
-    @OneToMany (mappedBy = "sets")
-    private java.util.Set<Exercise> exercises;
-
+    @ManyToOne
+    @JoinColumn(name = "exercise_id")
+    private Exercise exercise;
 }

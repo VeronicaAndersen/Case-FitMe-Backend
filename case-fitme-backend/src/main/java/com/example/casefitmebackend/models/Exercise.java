@@ -32,7 +32,6 @@ public class Exercise {
     @Column(name = "exercise_video_link", length = 50)
     private String video_link;
 
-    @ManyToOne
-    @JoinColumn(name = "set_id")
-    private Set sets;
+    @OneToMany (mappedBy = "sets")
+    private java.util.Set<Set> set;
 }

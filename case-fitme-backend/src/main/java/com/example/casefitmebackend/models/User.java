@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
+
 
 /**
  * User model.
@@ -14,8 +14,6 @@ import java.util.Set;
 @Getter
 @Setter
 public class User {
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,5 +37,6 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Profile profile;
+
 
 }
