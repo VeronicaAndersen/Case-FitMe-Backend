@@ -1,64 +1,51 @@
-//package com.example.casefitmebackend.mapper;
-//
-//import com.example.casefitmebackend.models.Exercise;
-//import com.example.casefitmebackend.models.Set;
-//import com.example.casefitmebackend.models.dto.ExerciseDto;
-//import com.example.casefitmebackend.services.set.SetService;
-//import org.mapstruct.Mapper;
-//import org.mapstruct.Mapping;
-//import org.mapstruct.Named;
-//import org.springframework.beans.factory.annotation.Autowired;
-//
-//import java.util.stream.Collectors;
-//
-//@Mapper(componentModel = "spring")
-//public abstract class ExerciseMapper {
-//    @Autowired
-//    private SetService setService;
-//
-//    @Mapping(target="set", source="set", qualifiedByName = "setsToIds")
-//    public abstract ExerciseDto exerToExerDTO(Exercise exercise);
-//
-//    @Mapping(target = "set", source = "set", qualifiedByName = "setIdsToSets")
-//    public abstract Exercise exerciseDtoToExercise(ExerciseDto exerciseDto);
-//
-//    @Named("setIdsToSets")
-//    java.util.Set<Set> mapIdsToSets(java.util.Set<Integer> id) {
-//        return id.stream()
-//                .map(i -> setService.findById(i))
-//                .collect(Collectors.toSet());
-//    }
-//
-//    @Named("setsToIds")
-//    java.util.Set<Integer> mapSetsToIds(java.util.Set<Set> source) {
-//        if(source ==null)
-//            return null;
-//        return source.stream()
-//                .map(s -> s.getId()).collect(Collectors.toSet());
-//    }
-//
-//    @Named("mapFromSet")
-//    Integer mapFromSet(Set set) {
-//        if (set == null) return null;
-//        return set.getId();
-//    }
-//
-//    @Named("mapToSet")
-//    Set mapToSet(Integer id){
-//        if(id == null) return null;
-//        return setService.findById(id);
-//    }
-//
-//
-////    @Mapping(target = "exercise", source = "exercise")
-////    public abstract Collection<ExerciseDto> exerciseToExerciseDto(Collection<Exercise> exercises);
-//
-//
-//    /*@Named("mapSetToExercises")
-//    Set<Set>mapSetToExercises(Set<Integer> setIds) {
-//    }*/
-//
-//    //    @Mapping(target = "sets", source = "sets.id")
-////    public abstract ExerciseDto exerciseToExerciseDto(Exercise exercise);
-//
-//}
+package com.example.casefitmebackend.mapper;
+
+import com.example.casefitmebackend.models.Exercise;
+import com.example.casefitmebackend.models.Set;
+import com.example.casefitmebackend.models.dto.ExerciseDto;
+import com.example.casefitmebackend.services.set.SetService;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.stream.Collectors;
+
+@Mapper(componentModel = "spring")
+public abstract class ExerciseMapper {
+    @Autowired
+    private SetService setService;
+
+    @Mapping(target="set", source="set", qualifiedByName = "setsToIds")
+    public abstract ExerciseDto exerToExerDTO(Exercise exercise);
+
+    @Mapping(target = "set", source = "set", qualifiedByName = "setIdsToSets")
+    public abstract Exercise exerciseDtoToExercise(ExerciseDto exerciseDto);
+
+    @Named("setIdsToSets")
+    java.util.Set<Set> mapIdsToSets(java.util.Set<Integer> id) {
+        return id.stream()
+                .map(i -> setService.findById(i))
+                .collect(Collectors.toSet());
+    }
+
+    @Named("setsToIds")
+    java.util.Set<Integer> mapSetsToIds(java.util.Set<Set> source) {
+        if(source ==null)
+            return null;
+        return source.stream()
+                .map(s -> s.getId()).collect(Collectors.toSet());
+    }
+
+    @Named("mapFromSet")
+    Integer mapFromSet(Set set) {
+        if (set == null) return null;
+        return set.getId();
+    }
+
+    @Named("mapToSet")
+    Set mapToSet(Integer id){
+        if(id == null) return null;
+        return setService.findById(id);
+    }
+}
