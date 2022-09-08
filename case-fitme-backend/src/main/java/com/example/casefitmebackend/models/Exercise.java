@@ -32,6 +32,6 @@ public class Exercise {
     @Column(name = "exercise_video_link", length = 50)
     private String video_link;
 
-    @OneToMany (mappedBy = "sets")
+    @OneToMany (mappedBy = "exercise")
     private java.util.Set<Set> set;
 }

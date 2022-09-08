@@ -1,6 +1,5 @@
 package com.example.casefitmebackend.controllers;
 
-import com.example.casefitmebackend.mapper.ExerciseMapper;
 import com.example.casefitmebackend.models.Exercise;
 import com.example.casefitmebackend.models.dto.ExerciseDto;
 import com.example.casefitmebackend.services.exercise.ExerciseService;
@@ -21,11 +20,9 @@ import java.net.URI;
 public class ExerciseController {
 
     private final ExerciseService exerciseService;
-    private final ExerciseMapper exerciseMapper;
 
-    public ExerciseController(ExerciseService exerciseService, ExerciseMapper exerciseMapper) {
+    public ExerciseController(ExerciseService exerciseService) {
         this.exerciseService = exerciseService;
-        this.exerciseMapper = exerciseMapper;
     }
 
     @Operation(summary = "Get all exercises")
@@ -49,6 +46,7 @@ public class ExerciseController {
     }
 
     //TODO: OBSERVE, Should schemas also be present within the other methods responses? If so, add.
+
     @Operation(summary = "Get exercise by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -92,10 +90,10 @@ public class ExerciseController {
                     content = @Content)
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Exercise> update(@RequestBody ExerciseDto exerciseDto, @PathVariable int id) {
-        if (exerciseDto.getId() != id)
+    public ResponseEntity<Exercise> update(@RequestBody Exercise exercise, @PathVariable int id) {
+        if (exercise.getId() != id)
             return ResponseEntity.badRequest().build();
-        exerciseService.update(exerciseMapper.exerciseDtoToExercise(exerciseDto));
+        exerciseService.update(exercise);
         return ResponseEntity.noContent().build();
     }
 
