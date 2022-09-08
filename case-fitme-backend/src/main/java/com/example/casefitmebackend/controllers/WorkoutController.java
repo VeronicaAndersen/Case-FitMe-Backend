@@ -45,8 +45,6 @@ public class WorkoutController {
         return ResponseEntity.ok(workoutService.findAll());
     }
 
-    //TODO: OBSERVE, Should schemas also be present within the other methods responses? If so, add.
-
     @Operation(summary = "Get workout by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -87,7 +85,8 @@ public class WorkoutController {
                     content = @Content),
             @ApiResponse(responseCode = "404",
                     description = "Workout with given ID does not exist",
-                    content = @Content)
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
     public ResponseEntity<Workout> update(@RequestBody Workout workout, @PathVariable int id) {
@@ -104,7 +103,8 @@ public class WorkoutController {
                     content = @Content),
             @ApiResponse(responseCode = "404",
                     description = "Workout with given ID does not exist",
-                    content = @Content)
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable int id) {
