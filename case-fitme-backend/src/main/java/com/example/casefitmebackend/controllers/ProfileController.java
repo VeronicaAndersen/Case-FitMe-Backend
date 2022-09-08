@@ -1,8 +1,8 @@
 package com.example.casefitmebackend.controllers;
 
-import com.example.casefitmebackend.models.Exercise;
-import com.example.casefitmebackend.models.dto.ExerciseDto;
-import com.example.casefitmebackend.services.exercise.ExerciseService;
+import com.example.casefitmebackend.models.Profile;
+import com.example.casefitmebackend.models.dto.ProfileDto;
+import com.example.casefitmebackend.services.profile.ProfileService;
 import com.example.casefitmebackend.util.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -16,25 +16,25 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping(path = "api/v1/exercise")
-public class ExerciseController {
+@RequestMapping(path = "api/v1/profile")
+public class ProfileController {
 
-    private final ExerciseService exerciseService;
+    private final ProfileService profileService;
 
-    public ExerciseController(ExerciseService exerciseService) {
-        this.exerciseService = exerciseService;
+    public ProfileController(ProfileService profileService) {
+        this.profileService = profileService;
     }
 
-    @Operation(summary = "Get all exercises")
+    @Operation(summary = "Get all profiles")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Success",
                     content = {
                             @Content(
                                     mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = ExerciseDto.class))) }),
+                                    array = @ArraySchema(schema = @Schema(implementation = ProfileDto.class))) }),
             @ApiResponse(responseCode = "404",
-                    description = "No exercises exist",
+                    description = "No profiles exist",
                     content = {
                             @Content(
                                     mediaType = "application/json",
@@ -42,31 +42,31 @@ public class ExerciseController {
     })
     @GetMapping
     public ResponseEntity findAll() {
-        return ResponseEntity.ok(exerciseService.findAll());
+        return ResponseEntity.ok(profileService.findAll());
     }
 
     //TODO: OBSERVE, Should schemas also be present within the other methods responses? If so, add.
 
-    @Operation(summary = "Get exercise by ID")
+    @Operation(summary = "Get profile by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Success",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ExerciseDto.class)) }),
+                            schema = @Schema(implementation = ProfileDto.class)) }),
             @ApiResponse(responseCode = "404",
-                    description = "Exercise with given ID does not exist",
+                    description = "Profile with given ID does not exist",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class)) })
     })
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable int id) {
-        return ResponseEntity.ok(exerciseService.findById(id));
+        return ResponseEntity.ok(profileService.findById(id));
     }
 
-    @Operation(summary = "Add exercise")
+    @Operation(summary = "Add profile")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "201",
-                    description = "Exercise successfully added",
+                    description = "Profile successfully added",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
@@ -74,41 +74,41 @@ public class ExerciseController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody Exercise exercise) {
-        var addedExercise = exerciseService.add(exercise);
-        URI uri = URI.create("exercise/" + addedExercise.getId());
+    public ResponseEntity add(@RequestBody Profile profile) {
+        var addedProfile = profileService.add(profile);
+        URI uri = URI.create("profile/" + addedProfile.getId());
         return ResponseEntity.created(uri).build();
     }
 
-    @Operation(summary = "Update exercise")
+    @Operation(summary = "Update profile")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "200",
-                    description = "Exercise successfully updated",
+                    description = "Profile successfully updated",
                     content = @Content),
             @ApiResponse(responseCode = "404",
-                    description = "Exercise with given ID does not exist",
+                    description = "Profile with given ID does not exist",
                     content = @Content)
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Exercise> update(@RequestBody Exercise exercise, @PathVariable int id) {
-        if (exercise.getId() != id)
+    public ResponseEntity<Profile> update(@RequestBody Profile profile, @PathVariable int id) {
+        if (profile.getId() != id)
             return ResponseEntity.badRequest().build();
-        exerciseService.update(exercise);
+        profileService.update(profile);
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Delete exercise")
+    @Operation(summary = "Delete profile")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
-                    description = "Exercise successfully deleted",
+                    description = "Profile successfully deleted",
                     content = @Content),
             @ApiResponse(responseCode = "404",
-                    description = "Exercise with given ID does not exist",
+                    description = "Profile with given ID does not exist",
                     content = @Content)
     })
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable int id) {
-        exerciseService.deleteById(id);
+        profileService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

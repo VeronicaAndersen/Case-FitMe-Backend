@@ -30,7 +30,6 @@ public class Profile {
     @Column(name = "profile_disabilities", length = 50)
     private String disabilities;
 
-
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;

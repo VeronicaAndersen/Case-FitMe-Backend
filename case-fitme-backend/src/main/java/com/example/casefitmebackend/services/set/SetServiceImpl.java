@@ -3,9 +3,11 @@ package com.example.casefitmebackend.services.set;
 import com.example.casefitmebackend.exceptions.SetNotFoundException;
 import com.example.casefitmebackend.models.Set;
 import com.example.casefitmebackend.repositories.SetRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class SetServiceImpl implements SetService{
 
     private SetRepository setRepository;

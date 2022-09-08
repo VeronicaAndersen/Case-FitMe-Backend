@@ -1,8 +1,8 @@
 package com.example.casefitmebackend.controllers;
 
-import com.example.casefitmebackend.models.Exercise;
-import com.example.casefitmebackend.models.dto.ExerciseDto;
-import com.example.casefitmebackend.services.exercise.ExerciseService;
+import com.example.casefitmebackend.models.Program;
+import com.example.casefitmebackend.models.dto.ProgramDto;
+import com.example.casefitmebackend.services.program.ProgramService;
 import com.example.casefitmebackend.util.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -16,25 +16,25 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping(path = "api/v1/exercise")
-public class ExerciseController {
+@RequestMapping(path = "api/v1/program")
+public class ProgramController {
 
-    private final ExerciseService exerciseService;
+    private final ProgramService programService;
 
-    public ExerciseController(ExerciseService exerciseService) {
-        this.exerciseService = exerciseService;
+    public ProgramController(ProgramService programService) {
+        this.programService = programService;
     }
 
-    @Operation(summary = "Get all exercises")
+    @Operation(summary = "Get all programs")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Success",
                     content = {
                             @Content(
                                     mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = ExerciseDto.class))) }),
+                                    array = @ArraySchema(schema = @Schema(implementation = ProgramDto.class))) }),
             @ApiResponse(responseCode = "404",
-                    description = "No exercises exist",
+                    description = "No programs exist",
                     content = {
                             @Content(
                                     mediaType = "application/json",
@@ -42,31 +42,31 @@ public class ExerciseController {
     })
     @GetMapping
     public ResponseEntity findAll() {
-        return ResponseEntity.ok(exerciseService.findAll());
+        return ResponseEntity.ok(programService.findAll());
     }
 
     //TODO: OBSERVE, Should schemas also be present within the other methods responses? If so, add.
 
-    @Operation(summary = "Get exercise by ID")
+    @Operation(summary = "Get program by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Success",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ExerciseDto.class)) }),
+                            schema = @Schema(implementation = ProgramDto.class)) }),
             @ApiResponse(responseCode = "404",
-                    description = "Exercise with given ID does not exist",
+                    description = "Program with given ID does not exist",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class)) })
     })
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable int id) {
-        return ResponseEntity.ok(exerciseService.findById(id));
+        return ResponseEntity.ok(programService.findById(id));
     }
 
-    @Operation(summary = "Add exercise")
+    @Operation(summary = "Add program")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "201",
-                    description = "Exercise successfully added",
+                    description = "Program successfully added",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
@@ -74,41 +74,41 @@ public class ExerciseController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody Exercise exercise) {
-        var addedExercise = exerciseService.add(exercise);
-        URI uri = URI.create("exercise/" + addedExercise.getId());
+    public ResponseEntity add(@RequestBody Program program) {
+        var addedProgram = programService.add(program);
+        URI uri = URI.create("program/" + addedProgram.getId());
         return ResponseEntity.created(uri).build();
     }
 
-    @Operation(summary = "Update exercise")
+    @Operation(summary = "Update program")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "200",
-                    description = "Exercise successfully updated",
+                    description = "Program successfully updated",
                     content = @Content),
             @ApiResponse(responseCode = "404",
-                    description = "Exercise with given ID does not exist",
+                    description = "Program with given ID does not exist",
                     content = @Content)
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Exercise> update(@RequestBody Exercise exercise, @PathVariable int id) {
-        if (exercise.getId() != id)
+    public ResponseEntity<Program> update(@RequestBody Program program, @PathVariable int id) {
+        if (program.getId() != id)
             return ResponseEntity.badRequest().build();
-        exerciseService.update(exercise);
+        programService.update(program);
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Delete exercise")
+    @Operation(summary = "Delete program")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
-                    description = "Exercise successfully deleted",
+                    description = "Program successfully deleted",
                     content = @Content),
             @ApiResponse(responseCode = "404",
-                    description = "Exercise with given ID does not exist",
+                    description = "Program with given ID does not exist",
                     content = @Content)
     })
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable int id) {
-        exerciseService.deleteById(id);
+        programService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

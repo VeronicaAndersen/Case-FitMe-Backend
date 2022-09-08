@@ -3,9 +3,11 @@ package com.example.casefitmebackend.services.profile;
 import com.example.casefitmebackend.exceptions.ProfileNotFoundException;
 import com.example.casefitmebackend.models.Profile;
 import com.example.casefitmebackend.repositories.ProfileRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class ProfileServiceImpl implements ProfileService{
     private ProfileRepository profileRepository;
 
