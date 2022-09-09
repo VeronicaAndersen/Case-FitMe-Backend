@@ -1,5 +1,6 @@
 package com.example.casefitmebackend.controllers;
 
+import com.example.casefitmebackend.mapper.ExerciseMapper;
 import com.example.casefitmebackend.models.Exercise;
 import com.example.casefitmebackend.models.dto.ExerciseDto;
 import com.example.casefitmebackend.services.exercise.ExerciseService;
@@ -20,9 +21,11 @@ import java.net.URI;
 public class ExerciseController {
 
     private final ExerciseService exerciseService;
+    private final ExerciseMapper exerciseMapper;
 
-    public ExerciseController(ExerciseService exerciseService) {
+    public ExerciseController(ExerciseService exerciseService, ExerciseMapper exerciseMapper) {
         this.exerciseService = exerciseService;
+        this.exerciseMapper = exerciseMapper;
     }
 
     @Operation(summary = "Get all exercises")
@@ -44,8 +47,6 @@ public class ExerciseController {
     public ResponseEntity findAll() {
         return ResponseEntity.ok(exerciseService.findAll());
     }
-
-    //TODO: OBSERVE, Should schemas also be present within the other methods responses? If so, add.
 
     @Operation(summary = "Get exercise by ID")
     @ApiResponses(value = {
@@ -87,13 +88,14 @@ public class ExerciseController {
                     content = @Content),
             @ApiResponse(responseCode = "404",
                     description = "Exercise with given ID does not exist",
-                    content = @Content)
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Exercise> update(@RequestBody Exercise exercise, @PathVariable int id) {
-        if (exercise.getId() != id)
+    public ResponseEntity<Exercise> update(@RequestBody ExerciseDto exerciseDto, @PathVariable int id) {
+        if (exerciseDto.getId() != id)
             return ResponseEntity.badRequest().build();
-        exerciseService.update(exercise);
+        exerciseService.update(exerciseMapper.exerciseDtoToExercise(exerciseDto));
         return ResponseEntity.noContent().build();
     }
 
@@ -104,7 +106,8 @@ public class ExerciseController {
                     content = @Content),
             @ApiResponse(responseCode = "404",
                     description = "Exercise with given ID does not exist",
-                    content = @Content)
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable int id) {

@@ -46,8 +46,6 @@ public class UserController {
         return ResponseEntity.ok(userService.findAll());
     }
 
-    //TODO: OBSERVE, Should schemas also be present within the other methods responses? If so, add.
-
     @Operation(summary = "Get user by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -88,7 +86,8 @@ public class UserController {
                     content = @Content),
             @ApiResponse(responseCode = "404",
                     description = "User with given ID does not exist",
-                    content = @Content)
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@RequestBody User user, @PathVariable int id) {
@@ -105,7 +104,8 @@ public class UserController {
                     content = @Content),
             @ApiResponse(responseCode = "404",
                     description = "User with given ID does not exist",
-                    content = @Content)
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable int id) {

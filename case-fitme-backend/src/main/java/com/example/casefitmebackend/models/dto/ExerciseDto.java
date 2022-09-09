@@ -2,6 +2,8 @@ package com.example.casefitmebackend.models.dto;
 
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
 public class ExerciseDto {
     private int id;
@@ -11,5 +13,5 @@ public class ExerciseDto {
     private String image;
     private String videoLink;
     private boolean achieved;
-    private Integer set;
+    private Set<Integer> set;
 }
