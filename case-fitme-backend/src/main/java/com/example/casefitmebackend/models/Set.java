@@ -20,9 +20,9 @@ public class Set {
     @Column(name = "set_exercise_repetition", length = 10)
     private int exercise_repetition;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "workout_id")
-    private Workout workouts;
+    private java.util.Set<Workout> workouts;
 
     @ManyToOne
     @JoinColumn(name = "exercise_id")

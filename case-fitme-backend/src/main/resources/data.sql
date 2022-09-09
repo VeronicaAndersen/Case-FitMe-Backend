@@ -1,5 +1,5 @@
-INSERT INTO app_user (user_password, user_first_name, user_last_name, user_is_contributor, user_is_admin)
-VALUES ( 'secretpass', 'Nemo', 'Nemosson', false, false);
+INSERT INTO app_user (user_first_name, user_last_name, user_is_contributor, user_is_admin)
+VALUES ( 'Nemo', 'Nemosson', false, false);
 
 INSERT INTO exercise (exercise_name, exercise_description, exercise_target_muscle_group, exercise_image, exercise_video_link)
 VALUES ('Leg press', 'Push your legs with weight.', 'Quads, Glutes, Adductors', null, null);

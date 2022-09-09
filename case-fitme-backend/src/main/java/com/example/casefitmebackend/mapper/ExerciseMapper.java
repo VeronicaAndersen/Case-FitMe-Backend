@@ -36,16 +36,4 @@ public abstract class ExerciseMapper {
         return source.stream()
                 .map(s -> s.getId()).collect(Collectors.toSet());
     }
-
-    @Named("mapFromSet")
-    Integer mapFromSet(Set set) {
-        if (set == null) return null;
-        return set.getId();
-    }
-
-    @Named("mapToSet")
-    Set mapToSet(Integer id){
-        if(id == null) return null;
-        return setService.findById(id);
-    }
 }

@@ -20,9 +20,6 @@ public class User {
     @Column(name = "user_id")
     private int id;
 
-    @Column(name = "user_password", length = 50)
-    private String password;
-
     @Column(name = "user_first_name", length = 50)
     private String first_name;
 
@@ -37,6 +34,4 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Profile profile;
-
-
 }

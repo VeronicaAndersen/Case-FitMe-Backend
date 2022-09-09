@@ -30,11 +30,10 @@ public class Workout {
     @ManyToMany(mappedBy = "workouts")
     private Set<Program> programs;
 
-    @OneToMany (mappedBy = "workouts")
+    @ManyToMany (mappedBy = "workouts")
     private Set<com.example.casefitmebackend.models.Set> sets;
 
     @ManyToMany(mappedBy = "workouts")
     private Set<Goal> goals;
-
 }
 
