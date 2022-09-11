@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
+@CrossOrigin(originPatterns = {"http://localhost:3000"})
 @RequestMapping(path = "api/v1/goal")
 public class GoalController {
 
