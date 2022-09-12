@@ -11,5 +11,5 @@ public class UserDto {
     private String lastName;
     private boolean isContributor;
     private boolean isAdmin;
-    private int profileId;
+    private Integer profile;
 }

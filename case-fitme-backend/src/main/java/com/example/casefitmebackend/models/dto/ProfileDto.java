@@ -9,5 +9,5 @@ public class ProfileDto {
     private String height;
     private String medicalConditions;
     private String disabilities;
-    private int userId;
+    private Integer user;
 }
