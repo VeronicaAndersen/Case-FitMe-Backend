@@ -21,14 +21,14 @@ public abstract class WorkoutMapper {
 //    @Mapping(source = "sets", target = "sets", qualifiedByName = "workoutsToIds")
 //    public abstract WorkoutDto workoutToWorkoutDTO(Workout workout);
 
-    @Mapping(source = "sets", target = "sets.id", qualifiedByName = "setsToIds")
-    public abstract java.util.Set<WorkoutDto> workoutToWorkoutDTO(Set<Workout> workouts);
+    @Mapping(source = "sets", target = "sets", qualifiedByName = "setsToIds")
+    public abstract WorkoutDto workoutToWorkoutDTO(Workout workouts);
 
 //    @Mapping(source = "sets", target = "sets", qualifiedByName = "workoutIdsToWorkout")
 //    public abstract Workout workoutToWorkoutDTO(WorkoutDto workoutDto);
 
       @Mapping(source = "sets", target = "sets", qualifiedByName = "setIdsToSet")
-      public abstract java.util.Set<Workout> workoutDTOToWorkout(Set<WorkoutDto> workoutDtos);
+      public abstract Workout workoutDTOToWorkout(WorkoutDto workoutDtos);
 
     @Named("setIdsToSet")
         java.util.Set<com.example.casefitmebackend.models.Set> mapIdsToSets(java.util.Set<Integer> id) {

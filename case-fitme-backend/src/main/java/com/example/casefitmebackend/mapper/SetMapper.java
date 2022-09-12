@@ -22,29 +22,13 @@ public abstract class SetMapper {
     @Autowired
     private WorkoutService workoutService;
 
+    @Mapping(target="workouts", source="workouts", qualifiedByName = "workoutsToIds")
     @Mapping(target="exercise", source="exercise.id")
     public abstract SetDto setToSetDTO(Set set);
 
+    @Mapping(target = "workouts", source = "workouts", qualifiedByName = "workoutIdsToWorkout")
     @Mapping(target = "exercise.id", source = "exercise")
     public abstract Set setDtoToSet(SetDto setDto);
-
-    @Mapping(target="workouts", source="workouts", qualifiedByName = "workoutsToIds")
-    public abstract java.util.Set<SetDto> setToSetDTO(java.util.Set<Set> set);
-
-    @Mapping(target = "workouts", source = "workouts", qualifiedByName = "workoutIdsToWorkout")
-    public abstract java.util.Set<Set> setDtoToSet(java.util.Set<SetDto> setDto);
-
-    @Named("mapFromExercise")
-    Integer mapFromExercise(Exercise exercise) {
-        if (exercise == null) return null;
-        return exercise.getId();
-    }
-
-    @Named("mapToExercise")
-    Exercise mapToExercise(Integer id){
-        if(id == null) return null;
-        return exerciseService.findById(id);
-    }
 
     @Named("workoutIdsToWorkout")
     java.util.Set<Workout> mapIdsToWorkouts(java.util.Set<Integer> id) {
