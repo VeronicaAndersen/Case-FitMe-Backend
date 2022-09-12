@@ -1,4 +1,3 @@
-/*
 package com.example.casefitmebackend.mapper;
 
 import com.example.casefitmebackend.models.Exercise;
@@ -62,4 +61,3 @@ public abstract class SetMapper {
                 .map(s -> s.getId()).collect(Collectors.toSet());
     }
 }
-*/
