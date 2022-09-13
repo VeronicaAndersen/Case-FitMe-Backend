@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -76,6 +77,7 @@ public class WorkoutController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
+    @PreAuthorize("hasRole(app_contributor)")
     public ResponseEntity add(@RequestBody WorkoutDto workoutDto) {
         var addedWorkout = workoutService.add(workoutMapper.workoutDTOToWorkout(workoutDto));
         URI uri = URI.create("workout/" + addedWorkout.getId());
@@ -93,6 +95,7 @@ public class WorkoutController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole(app_contributor)")
     public ResponseEntity<Workout> update(@RequestBody WorkoutDto workoutDto, @PathVariable int id) {
         if (workoutDto.getId() != id)
             return ResponseEntity.badRequest().build();
@@ -111,6 +114,7 @@ public class WorkoutController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole(app_contributor)")
     public ResponseEntity delete(@PathVariable int id) {
         workoutService.deleteById(id);
         return ResponseEntity.noContent().build();

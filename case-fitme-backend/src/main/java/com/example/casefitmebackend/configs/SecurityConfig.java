@@ -24,13 +24,14 @@ public class SecurityConfig {
                 // Enable security for http requests
                 .authorizeHttpRequests(authorize -> authorize
                         // Specify paths where public access is allowed
-                        .mvcMatchers("/api/v1/resources/public").permitAll()
+                        .mvcMatchers("/api/v1/exercise").permitAll()
                         // Specify paths to be protected with scope
-                        .mvcMatchers("/api/v1/resources/scope").hasAuthority("SCOPE_profile")
+                        .mvcMatchers("/api/v1/user").hasAuthority("SCOPE_profile")
                         // Specify paths to be protected with role
-                        .mvcMatchers("/api/v1/resources/roles").hasRole("ADMIN")
+                        //.mvcMatchers("/api/v1/resources/roles").hasRole("ADMIN")
                         // All remaining paths require authentication
-                        .anyRequest().authenticated()
+                        //.anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer()
                 .jwt()

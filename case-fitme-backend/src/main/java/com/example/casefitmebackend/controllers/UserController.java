@@ -12,7 +12,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -62,11 +65,16 @@ public class UserController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) })
     })
     @GetMapping("/{id}")
-    public ResponseEntity findById(@PathVariable int id) {
+    public ResponseEntity findById(@PathVariable int id, @AuthenticationPrincipal Jwt jwt) {
+        if(id != jwt.getClaimAsString("sub"))
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("User ID does not match");
+
         return ResponseEntity.ok(userMapper.userToUserDto(userService.findById(id)));
     }
 
-    @Operation(summary = "Add user")
+    @Operation(summary = "Register user")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "201",
                     description = "User successfully added",
@@ -77,9 +85,9 @@ public class UserController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody UserDto userDto) {
-        var addedUser = userService.add(userMapper.userDtoToUser(userDto));
-        URI uri = URI.create("user/" + addedUser.getId());
+    public ResponseEntity add(@AuthenticationPrincipal Jwt jwt) {
+        User user = userService.add(jwt.getClaimAsString("sub"));
+        URI uri = URI.create("user/" + user.getId());
         return ResponseEntity.created(uri).build();
     }
 
