@@ -3,6 +3,7 @@ package com.example.casefitmebackend.mapper;
 import com.example.casefitmebackend.models.Exercise;
 import com.example.casefitmebackend.models.Set;
 import com.example.casefitmebackend.models.Workout;
+import com.example.casefitmebackend.models.dto.ExerciseDto;
 import com.example.casefitmebackend.models.dto.SetDto;
 import com.example.casefitmebackend.services.exercise.ExerciseService;
 import com.example.casefitmebackend.services.set.SetService;
@@ -12,6 +13,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -25,6 +27,8 @@ public abstract class SetMapper {
     @Mapping(target="workouts", source="workouts", qualifiedByName = "workoutsToIds")
     @Mapping(target="exercise", source="exercise.id")
     public abstract SetDto setToSetDTO(Set set);
+
+    public abstract Collection<SetDto> setsToSetDTOs(Collection<Set> set);
 
     @Mapping(target = "workouts", source = "workouts", qualifiedByName = "workoutIdsToWorkout")
     @Mapping(target = "exercise.id", source = "exercise")

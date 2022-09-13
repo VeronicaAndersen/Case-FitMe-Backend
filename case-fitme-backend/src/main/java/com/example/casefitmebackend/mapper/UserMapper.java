@@ -22,5 +22,8 @@ public abstract class UserMapper {
     @Mapping(target="profile", source="profile.id")
     public abstract UserDto userToUserDto(User user);
 
+    @Mapping(target="profile.id", source="profile")
+    public abstract User userDtoToUser(UserDto dto);
+
     public abstract Collection<UserDto> userToUserDto(Collection<User> users);
 }

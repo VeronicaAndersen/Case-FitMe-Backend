@@ -1,5 +1,6 @@
 package com.example.casefitmebackend.controllers;
 
+import com.example.casefitmebackend.mapper.GoalMapper;
 import com.example.casefitmebackend.models.Goal;
 import com.example.casefitmebackend.models.dto.GoalDto;
 import com.example.casefitmebackend.services.goal.GoalService;
@@ -21,9 +22,11 @@ import java.net.URI;
 public class GoalController {
 
     private final GoalService goalService;
+    private final GoalMapper goalMapper;
 
-    public GoalController(GoalService goalService) {
+    public GoalController(GoalService goalService, GoalMapper goalMapper) {
         this.goalService = goalService;
+        this.goalMapper = goalMapper;
     }
 
     @Operation(summary = "Get all goals")
@@ -43,7 +46,7 @@ public class GoalController {
     })
     @GetMapping
     public ResponseEntity findAll() {
-        return ResponseEntity.ok(goalService.findAll());
+        return ResponseEntity.ok(goalMapper.goalToGoalDto(goalService.findAll()));
     }
 
     @Operation(summary = "Get goal by ID")
@@ -59,7 +62,7 @@ public class GoalController {
     })
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable int id) {
-        return ResponseEntity.ok(goalService.findById(id));
+        return ResponseEntity.ok(goalMapper.goalToGoalDto(goalService.findById(id)));
     }
 
     @Operation(summary = "Add goal")
@@ -73,8 +76,8 @@ public class GoalController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody Goal goal) {
-        var addedGoal = goalService.add(goal);
+    public ResponseEntity add(@RequestBody GoalDto goalDto) {
+        var addedGoal = goalService.add(goalMapper.goalDtoToGoal(goalDto));
         URI uri = URI.create("goal/" + addedGoal.getId());
         return ResponseEntity.created(uri).build();
     }
@@ -90,10 +93,10 @@ public class GoalController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Goal> update(@RequestBody Goal goal, @PathVariable int id) {
-        if (goal.getId() != id)
+    public ResponseEntity<Goal> update(@RequestBody GoalDto goalDto, @PathVariable int id) {
+        if (goalDto.getId() != id)
             return ResponseEntity.badRequest().build();
-        goalService.update(goal);
+        goalService.update(goalMapper.goalDtoToGoal(goalDto));
         return ResponseEntity.noContent().build();
     }
 

@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -20,8 +21,11 @@ public abstract class ExerciseMapper {
     @Mapping(target="set", source="set", qualifiedByName = "setsToIds")
     public abstract ExerciseDto exerciseToExerciseDTO(Exercise exercise);
 
+    public abstract Collection<ExerciseDto> exercisesToExerciseDTOs(Collection<Exercise> exercise);
+
     @Mapping(target = "set", source = "set", qualifiedByName = "setIdsToSet")
     public abstract Exercise exerciseDtoToExercise(ExerciseDto exerciseDto);
+
 
     @Named("setIdsToSet")
     java.util.Set<Set> mapIdsToSets(java.util.Set<Integer> id) {

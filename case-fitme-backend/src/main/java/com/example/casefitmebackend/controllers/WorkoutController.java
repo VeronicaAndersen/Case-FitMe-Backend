@@ -1,5 +1,6 @@
 package com.example.casefitmebackend.controllers;
 
+import com.example.casefitmebackend.mapper.WorkoutMapper;
 import com.example.casefitmebackend.models.Workout;
 import com.example.casefitmebackend.models.dto.WorkoutDto;
 import com.example.casefitmebackend.services.workout.WorkoutService;
@@ -21,9 +22,11 @@ import java.net.URI;
 public class WorkoutController {
 
     private final WorkoutService workoutService;
+    private final WorkoutMapper workoutMapper;
 
-    public WorkoutController(WorkoutService workoutService) {
+    public WorkoutController(WorkoutService workoutService, WorkoutMapper workoutMapper) {
         this.workoutService = workoutService;
+        this.workoutMapper = workoutMapper;
     }
 
     @Operation(summary = "Get all workouts")
@@ -43,7 +46,7 @@ public class WorkoutController {
     })
     @GetMapping
     public ResponseEntity findAll() {
-        return ResponseEntity.ok(workoutService.findAll());
+        return ResponseEntity.ok(workoutMapper.workoutsToWorkoutDTOs(workoutService.findAll()));
     }
 
     @Operation(summary = "Get workout by ID")
@@ -59,7 +62,7 @@ public class WorkoutController {
     })
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable int id) {
-        return ResponseEntity.ok(workoutService.findById(id));
+        return ResponseEntity.ok(workoutMapper.workoutToWorkoutDTO(workoutService.findById(id)));
     }
 
     @Operation(summary = "Add workout")
@@ -73,8 +76,8 @@ public class WorkoutController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody Workout workout) {
-        var addedWorkout = workoutService.add(workout);
+    public ResponseEntity add(@RequestBody WorkoutDto workoutDto) {
+        var addedWorkout = workoutService.add(workoutMapper.workoutDTOToWorkout(workoutDto));
         URI uri = URI.create("workout/" + addedWorkout.getId());
         return ResponseEntity.created(uri).build();
     }
@@ -90,10 +93,10 @@ public class WorkoutController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Workout> update(@RequestBody Workout workout, @PathVariable int id) {
-        if (workout.getId() != id)
+    public ResponseEntity<Workout> update(@RequestBody WorkoutDto workoutDto, @PathVariable int id) {
+        if (workoutDto.getId() != id)
             return ResponseEntity.badRequest().build();
-        workoutService.update(workout);
+        workoutService.update(workoutMapper.workoutDTOToWorkout(workoutDto));
         return ResponseEntity.noContent().build();
     }
 

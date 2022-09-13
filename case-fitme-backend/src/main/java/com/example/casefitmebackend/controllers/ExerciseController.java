@@ -46,7 +46,7 @@ public class ExerciseController {
     })
     @GetMapping
     public ResponseEntity findAll() {
-        return ResponseEntity.ok(exerciseService.findAll());
+        return ResponseEntity.ok(exerciseMapper.exercisesToExerciseDTOs(exerciseService.findAll()));
     }
 
     @Operation(summary = "Get exercise by ID")
@@ -62,7 +62,7 @@ public class ExerciseController {
     })
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable int id) {
-        return ResponseEntity.ok(exerciseService.findById(id));
+        return ResponseEntity.ok(exerciseMapper.exerciseToExerciseDTO(exerciseService.findById(id)));
     }
 
     @Operation(summary = "Add exercise")
@@ -76,8 +76,8 @@ public class ExerciseController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody Exercise exercise) {
-        var addedExercise = exerciseService.add(exercise);
+    public ResponseEntity add(@RequestBody ExerciseDto exerciseDto) {
+        var addedExercise = exerciseService.add(exerciseMapper.exerciseDtoToExercise(exerciseDto));
         URI uri = URI.create("exercise/" + addedExercise.getId());
         return ResponseEntity.created(uri).build();
     }

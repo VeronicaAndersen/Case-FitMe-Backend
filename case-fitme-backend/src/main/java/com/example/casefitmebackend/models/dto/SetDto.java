@@ -1,6 +1,7 @@
 package com.example.casefitmebackend.models.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 

@@ -1,5 +1,6 @@
 package com.example.casefitmebackend.controllers;
 
+import com.example.casefitmebackend.mapper.SetMapper;
 import com.example.casefitmebackend.models.Set;
 import com.example.casefitmebackend.models.dto.SetDto;
 import com.example.casefitmebackend.services.set.SetService;
@@ -21,9 +22,11 @@ import java.net.URI;
 public class SetController {
 
     private final SetService setService;
+    private final SetMapper setMapper;
 
-    public SetController(SetService setService) {
+    public SetController(SetService setService, SetMapper setMapper) {
         this.setService = setService;
+        this.setMapper = setMapper;
     }
 
     @Operation(summary = "Get all sets")
@@ -43,7 +46,7 @@ public class SetController {
     })
     @GetMapping
     public ResponseEntity findAll() {
-        return ResponseEntity.ok(setService.findAll());
+        return ResponseEntity.ok(setMapper.setsToSetDTOs(setService.findAll()));
     }
 
     @Operation(summary = "Get set by ID")
@@ -59,7 +62,7 @@ public class SetController {
     })
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable int id) {
-        return ResponseEntity.ok(setService.findById(id));
+        return ResponseEntity.ok(setMapper.setToSetDTO(setService.findById(id)));
     }
 
     @Operation(summary = "Add set")
@@ -73,8 +76,8 @@ public class SetController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody Set set) {
-        var addedSet = setService.add(set);
+    public ResponseEntity add(@RequestBody SetDto setDto) {
+        var addedSet = setService.add(setMapper.setDtoToSet(setDto));
         URI uri = URI.create("set/" + addedSet.getId());
         return ResponseEntity.created(uri).build();
     }
@@ -90,10 +93,10 @@ public class SetController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Set> update(@RequestBody Set set, @PathVariable int id) {
-        if (set.getId() != id)
+    public ResponseEntity<Set> update(@RequestBody SetDto setDto, @PathVariable int id) {
+        if (setDto.getId() != id)
             return ResponseEntity.badRequest().build();
-        setService.update(set);
+        setService.update(setMapper.setDtoToSet(setDto));
         return ResponseEntity.noContent().build();
     }
 

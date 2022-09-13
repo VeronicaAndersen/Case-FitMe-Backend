@@ -1,5 +1,6 @@
 package com.example.casefitmebackend.controllers;
 
+import com.example.casefitmebackend.mapper.ProfileMapper;
 import com.example.casefitmebackend.models.Profile;
 import com.example.casefitmebackend.models.dto.ProfileDto;
 import com.example.casefitmebackend.services.profile.ProfileService;
@@ -21,9 +22,11 @@ import java.net.URI;
 public class ProfileController {
 
     private final ProfileService profileService;
+    private final ProfileMapper profileMapper;
 
-    public ProfileController(ProfileService profileService) {
+    public ProfileController(ProfileService profileService, ProfileMapper profileMapper) {
         this.profileService = profileService;
+        this.profileMapper = profileMapper;
     }
 
     @Operation(summary = "Get all profiles")
@@ -43,7 +46,7 @@ public class ProfileController {
     })
     @GetMapping
     public ResponseEntity findAll() {
-        return ResponseEntity.ok(profileService.findAll());
+        return ResponseEntity.ok(profileMapper.profileToProfileDto(profileService.findAll()));
     }
 
     @Operation(summary = "Get profile by ID")
@@ -59,7 +62,7 @@ public class ProfileController {
     })
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable int id) {
-        return ResponseEntity.ok(profileService.findById(id));
+        return ResponseEntity.ok(profileMapper.profileToProfileDto(profileService.findById(id)));
     }
 
     @Operation(summary = "Add profile")
@@ -73,8 +76,8 @@ public class ProfileController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody Profile profile) {
-        var addedProfile = profileService.add(profile);
+    public ResponseEntity add(@RequestBody ProfileDto profileDto) {
+        var addedProfile = profileService.add(profileMapper.profileDtoToProfile(profileDto));
         URI uri = URI.create("profile/" + addedProfile.getId());
         return ResponseEntity.created(uri).build();
     }
@@ -90,10 +93,10 @@ public class ProfileController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Profile> update(@RequestBody Profile profile, @PathVariable int id) {
-        if (profile.getId() != id)
+    public ResponseEntity<Profile> update(@RequestBody ProfileDto profileDto, @PathVariable int id) {
+        if (profileDto.getId() != id)
             return ResponseEntity.badRequest().build();
-        profileService.update(profile);
+        profileService.update(profileMapper.profileDtoToProfile(profileDto));
         return ResponseEntity.noContent().build();
     }
 

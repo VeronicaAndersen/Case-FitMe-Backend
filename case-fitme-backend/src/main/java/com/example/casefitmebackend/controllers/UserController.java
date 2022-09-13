@@ -1,6 +1,7 @@
 
 package com.example.casefitmebackend.controllers;
 
+import com.example.casefitmebackend.mapper.UserMapper;
 import com.example.casefitmebackend.models.User;
 import com.example.casefitmebackend.models.dto.UserDto;
 import com.example.casefitmebackend.services.user.UserService;
@@ -22,9 +23,11 @@ import java.net.URI;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @Operation(summary = "Get all users")
@@ -44,7 +47,7 @@ public class UserController {
     })
     @GetMapping
     public ResponseEntity findAll() {
-        return ResponseEntity.ok(userService.findAll());
+        return ResponseEntity.ok(userMapper.userToUserDto(userService.findAll()));
     }
 
     @Operation(summary = "Get user by ID")
@@ -60,7 +63,7 @@ public class UserController {
     })
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable int id) {
-        return ResponseEntity.ok(userService.findById(id));
+        return ResponseEntity.ok(userMapper.userToUserDto(userService.findById(id)));
     }
 
     @Operation(summary = "Add user")
@@ -74,8 +77,8 @@ public class UserController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody User user) {
-        var addedUser = userService.add(user);
+    public ResponseEntity add(@RequestBody UserDto userDto) {
+        var addedUser = userService.add(userMapper.userDtoToUser(userDto));
         URI uri = URI.create("user/" + addedUser.getId());
         return ResponseEntity.created(uri).build();
     }
@@ -91,10 +94,10 @@ public class UserController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@RequestBody User user, @PathVariable int id) {
-        if (user.getId() != id)
+    public ResponseEntity<User> update(@RequestBody UserDto userDto, @PathVariable int id) {
+        if (userDto.getId() != id)
             return ResponseEntity.badRequest().build();
-        userService.update(user);
+        userService.update(userMapper.userDtoToUser(userDto));
         return ResponseEntity.noContent().build();
     }
 

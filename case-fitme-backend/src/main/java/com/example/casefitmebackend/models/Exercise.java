@@ -23,7 +23,7 @@ public class Exercise {
     @Column(name = "exercise_description", length = 50)
     private String description;
 
-    @Column(name = "exercise_target_muscle_group", length = 50, nullable = false)
+    @Column(name = "exercise_target_muscle_group", length = 50)
     private String target_muscle_group;
 
     @Column(name = "exercise_image", length = 50)
