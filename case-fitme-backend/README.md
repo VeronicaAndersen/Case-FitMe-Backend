@@ -17,10 +17,10 @@
 
 <!-- ABOUT THE PROJECT -->
 # About the project
-<h3>&nbsp; <a href="https://github.com/Cusatelli/Case-Se-Java-MeFit/wiki/Requirement-Specification">Requirement Specification</a></h3>
-A detailed list of all our requirements & analysis.
+<h3>&nbsp; <a href="https://github.com/VeronicaAndersen/Case-FitMe-Backend/wiki">Requirement Specification</a></h3>
+A list of all our requirements.
 
-<h3>&nbsp; <a href="">API Documentation</a></h3>
+<h3>&nbsp; <a href=".........">API Documentation</a></h3>
 A detailed guide on how to access our endpoints.
 
 
