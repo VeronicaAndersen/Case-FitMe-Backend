@@ -1,10 +1,7 @@
-![img](https://user-images.githubusercontent.com/70511142/190142888-32db5866-80b5-4cec-85bd-2f200ed75e41.png)
-![img_1](https://user-images.githubusercontent.com/70511142/190142893-9b0db79f-48d9-4f7f-ae03-c742f11490d3.png)
-![img_2](https://user-images.githubusercontent.com/70511142/190142894-688c8f06-e50e-4e60-a9df-63f271558153.png)
-<div id="top"></div>
+
 
 <div align="center">
-<h3 align="center">Case MeFit</h3>
+<h1 align="center">Case MeFit</h1>
   <p><a href="https://fitmecase.herokuapp.com/swagger-ui/index.html#/">View API Endpoints</a>
   </p>
 </div>
@@ -66,7 +63,7 @@ springdoc.swagger-ui.operationsSorter = method
 Replace these with yours database credentials. You will find these under heroku Overview:
 1. Click Heroku Postgres
 
-    <img alt="img_2.png" src="img_1.png" width="170px"/>
+![img_1](https://user-images.githubusercontent.com/70511142/190142893-9b0db79f-48d9-4f7f-ae03-c742f11490d3.png)<br/>
 2. Click settings and replace these four with the credentials that shows.
 - YourHost
 - NameOfYourDatabase
@@ -107,13 +104,13 @@ That will show some JSON data like:
 
 Configure Add-ons called Heroku Postgres in heroku under Overview.
 
-<img alt="img.png" src="img.png" title="Add-ons"/>
+![img_2](https://user-images.githubusercontent.com/70511142/190142894-688c8f06-e50e-4e60-a9df-63f271558153.png)
 
 ### Gitlab
 
 Make sure that both stages for build & deploy are passed under CI/CD Pipelines.
 
-![img_3.png](img_3.png)
+![img](https://user-images.githubusercontent.com/70511142/190142888-32db5866-80b5-4cec-85bd-2f200ed75e41.png)
 
 
 <!-- CONVENTIONS -->
