@@ -20,18 +20,24 @@ public abstract class ProfileMapper {
     @Autowired
     private UserService userService;
 
-    @Mapping(target = "user", source = "user.id")
+    @Mapping(target = "user", source = "user", qualifiedByName = "userToId")
     public abstract ProfileDto profileToProfileDto(Profile profile);
 
-    @Mapping(target = "user", source = "user", qualifiedByName = "mapUserFromDto")
+    @Mapping(target = "user", source = "user", qualifiedByName = "setIdToUser")
     public abstract Profile profileDtoToProfile(ProfileDto profileDto);
 
    @Mapping(target = "profile", source = "profile")
     public abstract Collection<ProfileDto> profileToProfileDto(Collection<Profile> profiles);
 
-    @Named("mapUserFromDto")
-    User mapUserFromDto(Integer userId){
-        if (userId == null) return null;
-        return userService.findById(userId);
+    @Named("setIdToUser")
+    User mapIdToUser(String uid) {
+        return userService.findByUid(uid);
+    }
+
+    @Named("userToId")
+    String mapUserToId(User user) {
+        if(user ==null)
+            return null;
+        return user.getUid();
     }
 }

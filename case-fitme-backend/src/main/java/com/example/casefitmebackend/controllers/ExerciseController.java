@@ -12,12 +12,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
-@CrossOrigin(originPatterns = {"http://localhost:3000"})
+@CrossOrigin(originPatterns = {"http://localhost:3000", "https://case-mefit-frontend.herokuapp.com/"})
 @RequestMapping(path = "api/v1/exercise")
 public class ExerciseController {
 
@@ -76,6 +77,7 @@ public class ExerciseController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
+    @PreAuthorize("hasRole('Admin')")
     public ResponseEntity add(@RequestBody ExerciseDto exerciseDto) {
         var addedExercise = exerciseService.add(exerciseMapper.exerciseDtoToExercise(exerciseDto));
         URI uri = URI.create("exercise/" + addedExercise.getId());
@@ -93,6 +95,7 @@ public class ExerciseController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole(Contributor)")
     public ResponseEntity<Exercise> update(@RequestBody ExerciseDto exerciseDto, @PathVariable int id) {
         if (exerciseDto.getId() != id)
             return ResponseEntity.badRequest().build();
@@ -111,6 +114,7 @@ public class ExerciseController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole(Contributor)")
     public ResponseEntity delete(@PathVariable int id) {
         exerciseService.deleteById(id);
         return ResponseEntity.noContent().build();

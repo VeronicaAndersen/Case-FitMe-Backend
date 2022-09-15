@@ -12,12 +12,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
-@CrossOrigin(originPatterns = {"http://localhost:3000"})
+@CrossOrigin(originPatterns = {"http://localhost:3000", "https://case-mefit-frontend.herokuapp.com/"})
 @RequestMapping(path = "api/v1/profile")
 public class ProfileController {
 
@@ -111,6 +112,7 @@ public class ProfileController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('User')")
     public ResponseEntity delete(@PathVariable int id) {
         profileService.deleteById(id);
         return ResponseEntity.noContent().build();
