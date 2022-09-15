@@ -28,7 +28,12 @@ public abstract class ExerciseMapper {
     @Named("setIdsToSet")
     java.util.Set<Set> mapIdsToSets(java.util.Set<Integer> id) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         if(id ==null) return null;
+=======
+        if(id ==null)
+            return null;
+>>>>>>> keycloak
 =======
         if(id ==null)
             return null;
