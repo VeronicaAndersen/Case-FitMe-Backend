@@ -133,7 +133,7 @@ public class UserController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('Contributor')")
+    @PreAuthorize("hasRole('app_contributor')")
     public ResponseEntity delete(@PathVariable String id) {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();

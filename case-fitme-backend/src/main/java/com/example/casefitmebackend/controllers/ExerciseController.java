@@ -77,7 +77,7 @@ public class ExerciseController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('app_admin')")
     public ResponseEntity add(@RequestBody ExerciseDto exerciseDto) {
         var addedExercise = exerciseService.add(exerciseMapper.exerciseDtoToExercise(exerciseDto));
         URI uri = URI.create("exercise/" + addedExercise.getId());
@@ -95,7 +95,7 @@ public class ExerciseController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole(Contributor)")
+    @PreAuthorize("hasRole(app_contributor)")
     public ResponseEntity<Exercise> update(@RequestBody ExerciseDto exerciseDto, @PathVariable int id) {
         if (exerciseDto.getId() != id)
             return ResponseEntity.badRequest().build();
@@ -114,7 +114,7 @@ public class ExerciseController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole(Contributor)")
+    @PreAuthorize("hasRole(app_contributor)")
     public ResponseEntity delete(@PathVariable int id) {
         exerciseService.deleteById(id);
         return ResponseEntity.noContent().build();

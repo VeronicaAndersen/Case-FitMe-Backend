@@ -26,8 +26,8 @@ public class SecurityConfig {
                 // Enable security for http requests
                 .authorizeHttpRequests(authorize -> authorize
                         // Specify paths where public access is allowed
-                        .mvcMatchers("/api/v1/exercise").permitAll()
-                        .mvcMatchers("/api/v1/user").permitAll()
+                        //.mvcMatchers("/api/v1/exercise").permitAll()
+                        //.mvcMatchers("/api/v1/user").permitAll()
                         // Specify paths to be protected with scope
                         //.mvcMatchers("/api/v1/user").hasAuthority("SCOPE_profile")
                         // Specify paths to be protected with role

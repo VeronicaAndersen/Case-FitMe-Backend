@@ -77,7 +77,7 @@ public class WorkoutController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping
-    @PreAuthorize("hasRole('Contributor')")
+    @PreAuthorize("hasRole('app_contributor')")
     public ResponseEntity add(@RequestBody WorkoutDto workoutDto) {
         var addedWorkout = workoutService.add(workoutMapper.workoutDTOToWorkout(workoutDto));
         URI uri = URI.create("workout/" + addedWorkout.getId());
@@ -95,7 +95,7 @@ public class WorkoutController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('Contributor')")
+    @PreAuthorize("hasRole('app_contributor')")
     public ResponseEntity<Workout> update(@RequestBody WorkoutDto workoutDto, @PathVariable int id) {
         if (workoutDto.getId() != id)
             return ResponseEntity.badRequest().build();
