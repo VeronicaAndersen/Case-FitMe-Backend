@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-/**
- * Fully functioning ServiceImpl. Use this as template
- */
 @Service
 public class GoalServiceImpl implements GoalService {
     private GoalRepository goalRepository;
