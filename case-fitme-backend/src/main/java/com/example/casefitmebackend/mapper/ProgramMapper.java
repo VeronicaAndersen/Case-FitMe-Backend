@@ -34,12 +34,16 @@ public abstract class ProgramMapper {
 
     @Named("workoutIdsToWorkout")
     java.util.Set<Workout> mapIdsToWorkouts(java.util.Set<Integer> id) {
+        if(id ==null)
+            return null;
         return id.stream()
                 .map(i -> workoutService.findById(i))
                 .collect(Collectors.toSet());
     }
     @Named("profileIdsToProfile")
     java.util.Set<Profile> mapIdsToSets(java.util.Set<Integer> id) {
+        if(id ==null)
+            return null;
         return id.stream()
                 .map(i -> profileService.findById(i))
                 .collect(Collectors.toSet());

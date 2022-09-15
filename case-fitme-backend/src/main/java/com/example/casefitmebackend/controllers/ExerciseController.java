@@ -95,7 +95,7 @@ public class ExerciseController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole(app_contributor)")
+    @PreAuthorize("hasRole('app_contributor')")
     public ResponseEntity<Exercise> update(@RequestBody ExerciseDto exerciseDto, @PathVariable int id) {
         if (exerciseDto.getId() != id)
             return ResponseEntity.badRequest().build();
@@ -114,7 +114,7 @@ public class ExerciseController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole(app_contributor)")
+    @PreAuthorize("hasRole('app_contributor')")
     public ResponseEntity delete(@PathVariable int id) {
         exerciseService.deleteById(id);
         return ResponseEntity.noContent().build();

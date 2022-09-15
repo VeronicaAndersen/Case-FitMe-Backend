@@ -36,6 +36,8 @@ public abstract class SetMapper {
 
     @Named("workoutIdsToWorkout")
     java.util.Set<Workout> mapIdsToWorkouts(java.util.Set<Integer> id) {
+        if(id ==null)
+            return null;
         return id.stream()
                 .map(i -> workoutService.findById(i))
                 .collect(Collectors.toSet());

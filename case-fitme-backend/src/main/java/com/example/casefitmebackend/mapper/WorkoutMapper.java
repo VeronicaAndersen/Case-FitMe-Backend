@@ -31,6 +31,8 @@ public abstract class WorkoutMapper {
 
     @Named("setIdsToSet")
         java.util.Set<com.example.casefitmebackend.models.Set> mapIdsToSets(java.util.Set<Integer> id) {
+        if(id ==null)
+            return null;
         return id.stream()
                 .map(i -> setService.findById(i))
                 .collect(Collectors.toSet());

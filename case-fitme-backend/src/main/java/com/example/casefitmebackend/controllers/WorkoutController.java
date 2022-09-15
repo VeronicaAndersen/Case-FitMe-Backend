@@ -114,7 +114,7 @@ public class WorkoutController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('Contributor')")
+    @PreAuthorize("hasRole('app_contributor')")
     public ResponseEntity delete(@PathVariable int id) {
         workoutService.deleteById(id);
         return ResponseEntity.noContent().build();
