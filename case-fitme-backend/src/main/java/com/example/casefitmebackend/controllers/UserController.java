@@ -34,25 +34,25 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-//    @Operation(summary = "Get all users")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200",
-//                    description = "Success",
-//                    content = {
-//                            @Content(
-//                                    mediaType = "application/json",
-//                                    array = @ArraySchema(schema = @Schema(implementation = UserDto.class))) }),
-//            @ApiResponse(responseCode = "404",
-//                    description = "No users exist",
-//                    content = {
-//                            @Content(
-//                                    mediaType = "application/json",
-//                                    schema = @Schema(implementation = ApiErrorResponse.class)) })
-//    })
-//    @GetMapping
-//    public ResponseEntity findAll() {
-//        return ResponseEntity.ok(userMapper.userToUserDto(userService.findAll()));
-//    }
+    @Operation(summary = "Get all users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = UserDto.class))) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No users exist",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ApiErrorResponse.class)) })
+    })
+    @GetMapping
+    public ResponseEntity findAll() {
+        return ResponseEntity.ok(userMapper.userToUserDto(userService.findAll()));
+    }
 
     @Operation(summary = "Get user by ID")
     @ApiResponses(value = {
@@ -69,23 +69,6 @@ public class UserController {
     public ResponseEntity findById(@AuthenticationPrincipal Jwt jwt) {
         return ResponseEntity.ok(userService.findByUid(jwt.getClaimAsString("sub")));
     }
-
-//    @Operation(summary = "Add user")
-//    @ApiResponses( value = {
-//            @ApiResponse(responseCode = "201",
-//                    description = "User successfully added",
-//                    content = @Content),
-//            @ApiResponse(responseCode = "400",
-//                    description = "Malformed request",
-//                    content = { @Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = ApiErrorResponse.class)) }),
-//    })
-//    @PostMapping
-//    public ResponseEntity add(@RequestBody UserDto userDto) {
-//        User user = userService.add(userMapper.userDtoToUser(userDto));
-//        URI uri = URI.create("user/" + user.getId());
-//        return ResponseEntity.created(uri).build();
-//    }
 
     @Operation(summary = "Register user")
     @ApiResponses( value = {
@@ -104,23 +87,23 @@ public class UserController {
         return ResponseEntity.created(uri).build();
     }
 
-//    @Operation(summary = "Update user")
-//    @ApiResponses( value = {
-//            @ApiResponse(responseCode = "200",
-//                    description = "User successfully updated",
-//                    content = @Content),
-//            @ApiResponse(responseCode = "404",
-//                    description = "User with given ID does not exist",
-//                    content = { @Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = ApiErrorResponse.class)) }),
-//    })
-//    @PutMapping("/{id}")
-//    public ResponseEntity<User> update(@RequestBody UserDto userDto, @PathVariable int id) {
-//        if (userDto.getId() != id)
-//            return ResponseEntity.badRequest().build();
-//        userService.update(userMapper.userDtoToUser(userDto));
-//        return ResponseEntity.noContent().build();
-//    }
+    @Operation(summary = "Update user")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "200",
+                    description = "User successfully updated",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "User with given ID does not exist",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class)) }),
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@RequestBody UserDto userDto, @PathVariable String id) {
+        if (userDto.getUid() != id)
+            return ResponseEntity.badRequest().build();
+        userService.update(userMapper.userDtoToUser(userDto));
+        return ResponseEntity.noContent().build();
+    }
 
     @Operation(summary = "Delete user")
     @ApiResponses( value = {
@@ -133,7 +116,7 @@ public class UserController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('Contributor')")
+    @PreAuthorize("hasRole('app_contributor')")
     public ResponseEntity delete(@PathVariable String id) {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();

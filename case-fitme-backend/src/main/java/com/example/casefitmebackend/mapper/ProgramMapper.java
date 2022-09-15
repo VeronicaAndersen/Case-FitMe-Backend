@@ -1,10 +1,8 @@
 package com.example.casefitmebackend.mapper;
 
 import com.example.casefitmebackend.models.*;
-import com.example.casefitmebackend.models.dto.ExerciseDto;
 import com.example.casefitmebackend.models.dto.ProgramDto;
 import com.example.casefitmebackend.services.profile.ProfileService;
-import com.example.casefitmebackend.services.set.SetService;
 import com.example.casefitmebackend.services.workout.WorkoutService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-
 
 @Mapper(componentModel = "spring")
 public abstract class ProgramMapper {

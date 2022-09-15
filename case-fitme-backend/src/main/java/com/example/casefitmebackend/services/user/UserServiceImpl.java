@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-/**
- * Fully functioning ServiceImpl. Use this as template
- */
 @Service
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
@@ -19,16 +16,15 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    //maybe remove this one???????
     @Override
         public User findById(String id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException());
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     public User findByUid(String id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException());
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Override
@@ -48,6 +44,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setUid(uid);
         user.setFirst_name(name);
+        //TODO: FIX THIS LASTNAME
         user.setLast_name(lastName);
         return userRepository.save(user);
     }
