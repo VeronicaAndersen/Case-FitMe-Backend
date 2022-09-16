@@ -24,13 +24,13 @@ public class Exercise {
     private String description;
 
     @Column(name = "exercise_target_muscle_group", length = 50)
-    private String target_muscle_group;
+    private String targetMuscleGroup;
 
     @Column(name = "exercise_image", length = 300)
     private String image;
 
     @Column(name = "exercise_video_link", length = 300)
-    private String video_link;
+    private String videoLink;
 
     @OneToMany (mappedBy = "exercise")
     private java.util.Set<Set> set;

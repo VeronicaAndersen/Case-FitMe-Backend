@@ -19,16 +19,16 @@ public class User {
     private String uid;
 
     @Column(name = "user_first_name", length = 50)
-    private String first_name;
+    private String firstName;
 
     @Column(name = "user_last_name", length = 50)
-    private String last_name;
+    private String lastName;
 
     @Column(name = "user_is_contributor", length = 5)
-    private boolean is_contributor;
+    private boolean isContributor;
 
     @Column(name = "user_is_admin", length = 5)
-    private boolean is_admin;
+    private boolean isAdmin;
 
     @OneToOne(mappedBy = "user")
     private Profile profile;
