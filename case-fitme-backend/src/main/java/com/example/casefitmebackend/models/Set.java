@@ -2,6 +2,7 @@ package com.example.casefitmebackend.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -18,13 +19,13 @@ public class Set {
     private int id;
 
     @Column(name = "set_exercise_repetition", length = 10)
-    private int exercise_repetition;
-
-    @ManyToMany
-    @JoinColumn(name = "workout_id")
-    private java.util.Set<Workout> workouts;
+    private Integer exercise_repetition;
 
     @ManyToOne
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
+
+    @ManyToMany
+    @JoinColumn(name = "workout_id")
+    private java.util.Set<Workout> workouts;
 }

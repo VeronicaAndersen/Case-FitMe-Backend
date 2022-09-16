@@ -1,5 +1,6 @@
 package com.example.casefitmebackend.mapper;
 
+import com.example.casefitmebackend.models.Exercise;
 import com.example.casefitmebackend.models.Set;
 import com.example.casefitmebackend.models.Workout;
 import com.example.casefitmebackend.models.dto.SetDto;
@@ -28,8 +29,14 @@ public abstract class SetMapper {
     public abstract Collection<SetDto> setsToSetDTOs(Collection<Set> set);
 
     @Mapping(target = "workouts", source = "workouts", qualifiedByName = "workoutIdsToWorkout")
-    @Mapping(target = "exercise.id", source = "exercise")
+    @Mapping(target = "exercise", source = "exercise", qualifiedByName = "foo")
     public abstract Set setDtoToSet(SetDto setDto);
+
+    @Named("foo")
+    Exercise exerciseTest(Integer id) {
+        if (id == null) return null;
+        return exerciseService.findById(id);
+    }
 
     @Named("workoutIdsToWorkout")
     java.util.Set<Workout> mapIdsToWorkouts(java.util.Set<Integer> id) {
@@ -38,7 +45,7 @@ public abstract class SetMapper {
         return id.stream()
                 .map(i -> workoutService.findById(i))
                 .collect(Collectors.toSet());
-    }
+}
 
     @Named("workoutsToIds")
     java.util.Set<Integer> mapWorkoutsToIds(java.util.Set<Workout> source) {

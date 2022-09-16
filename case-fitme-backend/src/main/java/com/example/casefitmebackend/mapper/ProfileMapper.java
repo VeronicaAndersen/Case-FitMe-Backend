@@ -28,6 +28,8 @@ public abstract class ProfileMapper {
 
     @Named("setIdToUser")
     User mapIdToUser(String uid) {
+        if(uid ==null)
+            return null;
         return userService.findByUid(uid);
     }
 
