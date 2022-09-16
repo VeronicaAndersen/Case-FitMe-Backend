@@ -19,6 +19,9 @@ public class Goal {
     @Column(name = "goal_id")
     private int id;
 
+    @Column(name = "goal_name")
+    private String goal_name;
+
     @Column(name = "goal_end_date", length = 50, nullable = false)
     private Date end_date;
 
