@@ -5,5 +5,7 @@ import com.example.casefitmebackend.services.CrudService;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface UserService extends CrudService<User, Integer> {
+public interface UserService extends CrudService<User, String> {
+    User register(String uid, String name, String lastName);
+    User findByUid(String uid);
 }

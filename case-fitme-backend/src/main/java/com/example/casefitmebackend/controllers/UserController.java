@@ -12,13 +12,17 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
-@CrossOrigin(originPatterns = {"http://localhost:3000"})
+@CrossOrigin(originPatterns = {"http://localhost:3000", "https://case-mefit-frontend.herokuapp.com/"})
 @RequestMapping(path = "api/v1/user")
 public class UserController {
 
@@ -61,12 +65,12 @@ public class UserController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class)) })
     })
-    @GetMapping("/{id}")
-    public ResponseEntity findById(@PathVariable int id) {
-        return ResponseEntity.ok(userMapper.userToUserDto(userService.findById(id)));
+    @GetMapping("/current")
+    public ResponseEntity findById(@AuthenticationPrincipal Jwt jwt) {
+        return ResponseEntity.ok(userService.findByUid(jwt.getClaimAsString("sub")));
     }
 
-    @Operation(summary = "Add user")
+    @Operation(summary = "Register user")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "201",
                     description = "User successfully added",
@@ -76,10 +80,10 @@ public class UserController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
-    @PostMapping
-    public ResponseEntity add(@RequestBody UserDto userDto) {
-        var addedUser = userService.add(userMapper.userDtoToUser(userDto));
-        URI uri = URI.create("user/" + addedUser.getId());
+    @PostMapping("/register")
+    public ResponseEntity register(@AuthenticationPrincipal Jwt jwt) {
+        User user = userService.register(jwt.getClaimAsString("sub"), jwt.getClaimAsString("given_name"), jwt.getClaimAsString("last_name"));
+        URI uri = URI.create("user/" + user.getUid());
         return ResponseEntity.created(uri).build();
     }
 
@@ -94,8 +98,8 @@ public class UserController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@RequestBody UserDto userDto, @PathVariable int id) {
-        if (userDto.getId() != id)
+    public ResponseEntity<User> update(@RequestBody UserDto userDto, @PathVariable String id) {
+        if (userDto.getUid() != id)
             return ResponseEntity.badRequest().build();
         userService.update(userMapper.userDtoToUser(userDto));
         return ResponseEntity.noContent().build();
@@ -112,7 +116,8 @@ public class UserController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable int id) {
+    @PreAuthorize("hasRole('app_contributor')")
+    public ResponseEntity delete(@PathVariable String id) {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

@@ -1,12 +1,9 @@
 package com.example.casefitmebackend.mapper;
 
-import com.example.casefitmebackend.models.Exercise;
 import com.example.casefitmebackend.models.Set;
 import com.example.casefitmebackend.models.Workout;
-import com.example.casefitmebackend.models.dto.ExerciseDto;
 import com.example.casefitmebackend.models.dto.SetDto;
 import com.example.casefitmebackend.services.exercise.ExerciseService;
-import com.example.casefitmebackend.services.set.SetService;
 import com.example.casefitmebackend.services.workout.WorkoutService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -36,6 +33,8 @@ public abstract class SetMapper {
 
     @Named("workoutIdsToWorkout")
     java.util.Set<Workout> mapIdsToWorkouts(java.util.Set<Integer> id) {
+        if(id ==null)
+            return null;
         return id.stream()
                 .map(i -> workoutService.findById(i))
                 .collect(Collectors.toSet());

@@ -39,5 +39,4 @@ public class Profile {
     joinColumns = {@JoinColumn (name = "profile_id")},
             inverseJoinColumns = {@JoinColumn (name = "program_id")})
     private Set<Program> programs;
-
 }

@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class UserDto {
-    private int id;
+    private String uid;
     private String firstName;
     private String lastName;
     private boolean isContributor;
