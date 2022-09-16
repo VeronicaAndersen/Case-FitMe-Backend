@@ -9,7 +9,7 @@ public class UserDto {
     private String uid;
     private String firstName;
     private String lastName;
-    private boolean isContributor;
-    private boolean isAdmin;
+    private Boolean isContributor;
+    private Boolean isAdmin;
     private Integer profile;
 }

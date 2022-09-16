@@ -20,10 +20,10 @@ public class Goal {
     private int id;
 
     @Column(name = "goal_name")
-    private String goal_name;
+    private String goalName;
 
     @Column(name = "goal_end_date", length = 50)
-    private Date end_date;
+    private Date date;
 
     @Column(name = "goal_achieved", length = 50)
     private Boolean achieved;
