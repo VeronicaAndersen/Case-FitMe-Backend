@@ -13,6 +13,6 @@ public class ProfileDto {
     private String medicalConditions;
     private String disabilities;
     private String user;
-    private Set<Integer> programs;
+    //private Set<Integer> programs;
 
 }

@@ -43,9 +43,9 @@ public class UserServiceImpl implements UserService {
 
         User user = new User();
         user.setUid(uid);
-        user.setFirst_name(name);
+        user.setFirstName(name);
         //TODO: FIX THIS LASTNAME
-        user.setLast_name(lastName);
+        user.setLastName(lastName);
         return userRepository.save(user);
     }
 
