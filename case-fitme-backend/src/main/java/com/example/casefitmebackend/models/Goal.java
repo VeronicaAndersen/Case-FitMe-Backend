@@ -19,11 +19,14 @@ public class Goal {
     @Column(name = "goal_id")
     private int id;
 
-    @Column(name = "goal_end_date", length = 50, nullable = false)
+    @Column(name = "goal_name")
+    private String goal_name;
+
+    @Column(name = "goal_end_date", length = 50)
     private Date end_date;
 
-    @Column(name = "goal_achieved", length = 50, nullable = false)
-    private boolean achieved;
+    @Column(name = "goal_achieved", length = 50)
+    private Boolean achieved;
 
     @ManyToMany
     @JoinTable(name = "goal_workout",

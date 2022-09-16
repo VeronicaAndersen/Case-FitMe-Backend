@@ -17,7 +17,7 @@ public class Exercise {
     @Column(name = "exercise_id")
     private int id;
 
-    @Column(name = "exercise_name", length = 50, nullable = false)
+    @Column(name = "exercise_name", length = 50)
     private String name;
 
     @Column(name = "exercise_description", length = 50)
