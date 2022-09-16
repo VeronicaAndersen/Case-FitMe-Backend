@@ -19,7 +19,7 @@ public class Set {
     private int id;
 
     @Column(name = "set_exercise_repetition", length = 10)
-    private Integer exercise_repetition;
+    private Integer exerciseRepetition;
 
     @ManyToOne
     @JoinColumn(name = "exercise_id")

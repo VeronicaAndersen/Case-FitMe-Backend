@@ -27,8 +27,7 @@ public abstract class ExerciseMapper {
 
     @Named("setIdsToSet")
     java.util.Set<Set> mapIdsToSets(java.util.Set<Integer> id) {
-        if(id ==null)
-            return null;
+        if(id ==null) return null;
         return id.stream()
                 .map(i -> setService.findById(i))
                 .collect(Collectors.toSet());

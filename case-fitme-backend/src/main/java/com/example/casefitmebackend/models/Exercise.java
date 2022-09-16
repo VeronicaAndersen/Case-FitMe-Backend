@@ -26,10 +26,10 @@ public class Exercise {
     @Column(name = "exercise_target_muscle_group", length = 50)
     private String target_muscle_group;
 
-    @Column(name = "exercise_image", length = 50)
+    @Column(name = "exercise_image", length = 300)
     private String image;
 
-    @Column(name = "exercise_video_link", length = 50)
+    @Column(name = "exercise_video_link", length = 300)
     private String video_link;
 
     @OneToMany (mappedBy = "exercise")
