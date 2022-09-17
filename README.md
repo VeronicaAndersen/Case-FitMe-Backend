@@ -88,27 +88,20 @@ In the terminal write this commands:
 ### Testing in Postman
 
 In Postman you can test if it works with:
-http://localhost:8087/api/v1/
+http://localhost:8087/api/v1/set
 
 That will show some JSON data like:
 
 ```
 {
-        
-        
-        
+      "id": 1,
+      "exerciseRepetition": 8
 }
 ```
 
 ### Heroku
 
 Configure Add-ons called Heroku Postgres in heroku under Overview.
-
-![img_2](https://user-images.githubusercontent.com/70511142/190142894-688c8f06-e50e-4e60-a9df-63f271558153.png)
-
-### Gitlab
-
-Make sure that both stages for build & deploy are passed under CI/CD Pipelines.
 
 ![img](https://user-images.githubusercontent.com/70511142/190142888-32db5866-80b5-4cec-85bd-2f200ed75e41.png)
 
