@@ -20,7 +20,7 @@ public class Goal {
     private int id;
 
     @Column(name = "goal_end_date", length = 50, nullable = false)
-    private Date end_date;
+    private Date endDate;
 
     @Column(name = "goal_achieved", length = 50, nullable = false)
     private boolean achieved;

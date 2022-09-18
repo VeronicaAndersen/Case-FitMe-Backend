@@ -18,7 +18,7 @@ public class Set {
     private int id;
 
     @Column(name = "set_exercise_repetition", length = 10)
-    private int exercise_repetition;
+    private int exerciseRepetition;
 
     @ManyToMany
     @JoinColumn(name = "workout_id")

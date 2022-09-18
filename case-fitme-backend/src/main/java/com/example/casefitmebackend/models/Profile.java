@@ -25,7 +25,7 @@ public class Profile {
     private int height;
 
     @Column(name = "profile_medical_conditions", length = 50)
-    private String medical_conditions;
+    private String medicalConditions;
 
     @Column(name = "profile_disabilities", length = 50)
     private String disabilities;
