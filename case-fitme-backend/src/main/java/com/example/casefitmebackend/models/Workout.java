@@ -30,10 +30,10 @@ public class Workout {
     @ManyToMany(mappedBy = "workouts")
     private Set<Program> programs;
 
-    @ManyToMany (mappedBy = "workouts")
+    @ManyToMany
+    @JoinColumn(name = "set_id")
     private Set<com.example.casefitmebackend.models.Set> sets;
 
     @ManyToMany(mappedBy = "workouts")
     private Set<Goal> goals;
 }
-

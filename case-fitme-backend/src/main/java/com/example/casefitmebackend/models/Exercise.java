@@ -20,10 +20,10 @@ public class Exercise {
     @Column(name = "exercise_name", length = 50)
     private String name;
 
-    @Column(name = "exercise_description", length = 50)
+    @Column(name = "exercise_description", length = 300)
     private String description;
 
-    @Column(name = "exercise_target_muscle_group", length = 50)
+    @Column(name = "exercise_target_muscle_group", length = 300)
     private String targetMuscleGroup;
 
     @Column(name = "exercise_image", length = 300)
