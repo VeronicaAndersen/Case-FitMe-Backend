@@ -112,7 +112,7 @@ public class ProfileController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('app_user')")
+    //@PreAuthorize("hasRole('app_user')")
     public ResponseEntity delete(@PathVariable int id) {
         profileService.deleteById(id);
         return ResponseEntity.noContent().build();

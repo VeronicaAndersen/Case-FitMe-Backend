@@ -65,9 +65,9 @@ public class UserController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class)) })
     })
-    @GetMapping("/current")
-    public ResponseEntity findById(@AuthenticationPrincipal Jwt jwt) {
-        return ResponseEntity.ok(userService.findByUid(jwt.getClaimAsString("sub")));
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable String id) {
+        return ResponseEntity.ok(userService.findByUid(id));
     }
 
     @Operation(summary = "Register user")
@@ -81,8 +81,8 @@ public class UserController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @PostMapping("/register")
-    public ResponseEntity register(@AuthenticationPrincipal Jwt jwt) {
-        User user = userService.register(jwt.getClaimAsString("sub"), jwt.getClaimAsString("given_name"), jwt.getClaimAsString("last_name"));
+    public ResponseEntity register(@RequestBody UserDto jwt) {
+        User user = userService.add(userMapper.userDtoToUser(jwt));
         URI uri = URI.create("user/" + user.getUid());
         return ResponseEntity.created(uri).build();
     }
@@ -116,7 +116,7 @@ public class UserController {
                             schema = @Schema(implementation = ApiErrorResponse.class)) }),
     })
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('app_contributor')")
+    //@PreAuthorize("hasRole('app_contributor')")
     public ResponseEntity delete(@PathVariable String id) {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
