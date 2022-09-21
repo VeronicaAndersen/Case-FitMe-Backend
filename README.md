@@ -2,8 +2,6 @@
 
 <div align="center">
 <h1 align="center">Case MeFit</h1>
-  <p><a href="https://fitmecase.herokuapp.com/swagger-ui/index.html#/">View API Endpoints</a>
-  </p>
 </div>
 
 <!-- TABLE OF CONTENTS -->
@@ -20,7 +18,9 @@
 <h3>&nbsp; <a href="https://github.com/VeronicaAndersen/Case-FitMe-Backend/wiki">Requirement Specification</a></h3>
 A list of all our requirements.
 
-<h3>&nbsp; <a href=".........">API Documentation</a></h3>
+
+<h3><a href="https://fitmecase.herokuapp.com/swagger-ui/index.html#/">View API Endpoints</a>
+  </h3>
 A detailed guide on how to access our endpoints.
 
 
