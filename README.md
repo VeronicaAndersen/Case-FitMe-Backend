@@ -15,7 +15,7 @@
 
 <!-- ABOUT THE PROJECT -->
 # About the project
-<h3>&nbsp; <a href="https://github.com/VeronicaAndersen/Case-FitMe-Backend/wiki">Requirement Specification</a></h3>
+<h3>&nbsp;<a href="https://github.com/VeronicaAndersen/Case-FitMe-Backend/wiki">Requirement Specification</a></h3>
 A list of all our requirements.
 
 
@@ -72,7 +72,7 @@ Replace these with yours database credentials. You will find these under heroku 
 
 ## Deployment [Docker & Heroku]
 
-https://fitmecase.herokuapp.com/swagger-ui/index.html#/
+https://mefit-frontend-case.herokuapp.com
 
 In the terminal write this commands:
 ```
@@ -119,5 +119,5 @@ Read more: [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/
 <!-- MAINTAINERS -->
 # Maintainers
 Veronica Andersen @VeronicaAndersen
-Adrian Mattsson @adrianmttss 
+Adrian Mattsson @adrianmttss
 Sona Rahimova @suay-selay
