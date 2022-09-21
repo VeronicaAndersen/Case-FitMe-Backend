@@ -6,10 +6,11 @@
 
 <!-- TABLE OF CONTENTS -->
 # Table of Contents
-[Installation](-install)  
-[Usage](-usage)  
+[Installation](-install)    
+[Setup](-setup)  
+[Deployment](-deployment)    
+[Conventions](-conventions)<br/>
 [Maintainers](-maintainers)  
-[Contributing](-contributing)
 
 
 <!-- ABOUT THE PROJECT -->
