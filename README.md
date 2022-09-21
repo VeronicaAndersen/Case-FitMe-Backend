@@ -72,7 +72,7 @@ Replace these with yours database credentials. You will find these under heroku 
 
 ## Deployment [Docker & Heroku]
 
-https://fitmecase.herokuapp.com/swagger-ui/index.html#/
+https://mefit-frontend-case.herokuapp.com
 
 In the terminal write this commands:
 ```
