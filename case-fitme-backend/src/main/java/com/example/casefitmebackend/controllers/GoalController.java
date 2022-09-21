@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@CrossOrigin(originPatterns = {"http://localhost:3000/", "https://case-mefit-frontend.herokuapp.com/"})
+@CrossOrigin(originPatterns = {"http://localhost:3000/", "https://mefit-frontend-case.herokuapp.com/"})
 @RequestMapping(path = "api/v1/goal")
 public class GoalController {
 
