@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
+    /**
+     * Get a specific user by uid.
+     * @param id is the uid of the user you want to get.
+     * @return the user which id matches the parameters.
+     */
     public User findByUid(String id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
@@ -37,6 +42,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(entity);
     }
 
+    /**
+     * Register a user
+     * @param uid is the id of the user you want to register.
+     * @param name is the first name of the user.
+     * @param lastName is the lastname of the user.
+     * @return the saved user.
+     */
     public User register(String uid, String name, String lastName) {
         if(userRepository.existsById(uid))
             throw new UserAlreadyExistException();

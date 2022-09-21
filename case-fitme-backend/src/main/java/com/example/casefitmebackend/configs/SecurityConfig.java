@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 // Enable security for http requests
                 .authorizeHttpRequests(authorize -> authorize
-                        // All remaining paths require authentication
+                        // All paths require authentication
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer()
