@@ -24,7 +24,6 @@ public class Set {
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
-    @ManyToMany
-    @JoinColumn(name = "workout_id")
+    @ManyToMany(mappedBy = "sets")
     private java.util.Set<Workout> workouts;
 }
