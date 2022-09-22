@@ -23,8 +23,8 @@ public abstract class ProfileMapper {
     @Mapping(target = "user", source = "user", qualifiedByName = "setIdToUser")
     public abstract Profile profileDtoToProfile(ProfileDto profileDto);
 
-   @Mapping(target = "profile", source = "profile")
-    public abstract Collection<ProfileDto> profileToProfileDto(Collection<Profile> profiles);
+   @Mapping(target = "programs", source = "programs", qualifiedByName = "setProgramsToIds")
+   public abstract Collection<ProfileDto> profileToProfileDto(Collection<Profile> profiles);
 
     @Named("setIdToUser")
     User mapIdToUser(String uid) {

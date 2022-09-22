@@ -12,6 +12,5 @@ public class ExerciseDto {
     private String targetMuscleGroup;
     private String image;
     private String videoLink;
-    private boolean achieved;
     private Set<Integer> set;
 }
