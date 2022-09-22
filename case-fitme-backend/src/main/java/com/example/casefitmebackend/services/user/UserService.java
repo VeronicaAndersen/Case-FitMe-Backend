@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService extends CrudService<User, String> {
-    User register(String uid, String name, String lastName);
+    User register(String uid, String name);
     User findByUid(String uid);
 }

@@ -1,9 +1,6 @@
 package com.example.casefitmebackend.models.dto;
 
-import com.example.casefitmebackend.models.Program;
 import lombok.Data;
-
-import java.util.Set;
 
 @Data
 public class ProfileDto {
@@ -13,6 +10,4 @@ public class ProfileDto {
     private String medicalConditions;
     private String disabilities;
     private String user;
-    //private Set<Integer> programs;
-
 }

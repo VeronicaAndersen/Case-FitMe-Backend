@@ -46,18 +46,14 @@ public class UserServiceImpl implements UserService {
      * Register a user
      * @param uid is the id of the user you want to register.
      * @param name is the first name of the user.
-     * @param lastName is the lastname of the user.
      * @return the saved user.
      */
-    public User register(String uid, String name, String lastName) {
+    public User register(String uid, String name) {
         if(userRepository.existsById(uid))
             throw new UserAlreadyExistException();
-
         User user = new User();
         user.setUid(uid);
         user.setFirstName(name);
-        //TODO: FIX THIS LASTNAME
-        user.setLastName(lastName);
         return userRepository.save(user);
     }
 
